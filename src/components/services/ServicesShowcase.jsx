@@ -123,6 +123,21 @@ const servicesData = [
       'Ceremony Garlands',
     ],
   },
+  {
+    id: 9,
+    title: 'SAREE DRAPING SERVICES',
+    image: 'https://images.unsplash.com/photo-1610030469668-93535c17b6b3?auto=format&fit=crop&w=800&q=80',
+    description:
+      'Professional saree draping and pre-pleating services for weddings, engagements, baby showers, puberty ceremonies, festive occasions, and special celebrations.',
+    features: [
+      'Saree Pre-Pleating',
+      'Bridal Saree Draping',
+      'Traditional Saree Styling',
+      'Wedding Draping',
+      'Occasion Styling',
+      'Festive Saree Styling',
+    ],
+  },
 ];
 
 const ServiceCard = ({ service, index, onOpen }) => (

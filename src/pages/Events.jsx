@@ -12,13 +12,12 @@ const Events = () => {
     "@context": "https://schema.org",
     "@type": "EventPlanningBusiness",
     "name": "MISSINDIA Events",
-    "description": "Luxury event management services including DJ performances, dance crews, bridal makeovers, corporate events, brand promotions, modelling shoots and surprise celebrations.",
+    "description": "Luxury event management services including DJ performances, dance crews, corporate events, brand promotions, modelling shoots and surprise celebrations.",
     "url": "https://missindiaevents.com/events",
     "areaServed": "India",
     "serviceType": [
       "DJ Services",
       "Dance Crew Performances",
-      "Bridal Makeovers & Saree Draping",
       "Collaboration & Modelling Shoots",
       "Corporate Events",
       "Surprise Events",
@@ -34,11 +33,11 @@ const Events = () => {
         <title>Premium Event Management Services | MISSINDIA Events</title>
         <meta
           name="description"
-          content="Luxury event management services including DJ performances, dance crews, bridal makeovers, corporate events, brand promotions, modelling shoots and surprise celebrations."
+          content="Luxury event management services including DJ performances, dance crews, corporate events, brand promotions, modelling shoots and surprise celebrations."
         />
         <meta
           name="keywords"
-          content="Event Management, DJ Services, Dance Crew, Corporate Events, Brand Promotion, Modelling Shoots, Wedding Makeover, Surprise Events, Luxury Events, Event Planner India"
+          content="Event Management, DJ Services, Dance Crew, Corporate Events, Brand Promotion, Modelling Shoots, Surprise Events, Luxury Events, Event Planner India"
         />
         <meta property="og:title" content="MISSINDIA Events" />
         <meta
