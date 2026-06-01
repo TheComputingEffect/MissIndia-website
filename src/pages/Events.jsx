@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import EventsHero from '../components/events/EventsHero';
+import EventGrid from '../components/events/EventGrid';
 import EventsShowcase from '../components/events/EventsShowcase';
 import EventsWhyChoose from '../components/events/EventsWhyChoose';
 import EventsGallery from '../components/events/EventsGallery';
@@ -11,38 +12,38 @@ const Events = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "EventPlanningBusiness",
-    "name": "MISSINDIA Events",
-    "description": "Luxury event management services including DJ performances, dance crews, corporate events, brand promotions, modelling shoots and surprise celebrations.",
+    "name": "MISS INDIA EVENTS",
+    "description": "Professional event management services including weddings, engagements, baby showers, puberty ceremonies, corporate events, DJ entertainment, dance performances, modelling shoots, and surprise celebrations.",
     "url": "https://missindiaevents.com/events",
-    "areaServed": "India",
+    "areaServed": "Coimbatore, India",
     "serviceType": [
+      "Wedding & Engagement Events",
       "DJ Services",
-      "Dance Crew Performances",
+      "Dance Crew, Pyros & Blast Effects",
+      "Puberty Ceremony Events",
+      "Baby Shower Events",
       "Collaboration & Modelling Shoots",
       "Corporate Events",
-      "Surprise Events",
-      "Wedding & Engagement Events",
-      "Puberty Ceremony Events",
-      "Baby Shower Events"
+      "Surprise Events for Loved Ones"
     ]
   };
 
   return (
     <>
       <Helmet>
-        <title>Premium Event Management Services | MISSINDIA Events</title>
+        <title>Events Management Services | MISS INDIA EVENTS</title>
         <meta
           name="description"
-          content="Luxury event management services including DJ performances, dance crews, corporate events, brand promotions, modelling shoots and surprise celebrations."
+          content="Professional event management services including weddings, engagements, baby showers, puberty ceremonies, corporate events, DJ entertainment, dance performances, modelling shoots, and surprise celebrations."
         />
         <meta
           name="keywords"
-          content="Event Management, DJ Services, Dance Crew, Corporate Events, Brand Promotion, Modelling Shoots, Surprise Events, Luxury Events, Event Planner India"
+          content="Event Management Coimbatore, Wedding Event Planner, Corporate Event Management, Baby Shower Events, Puberty Ceremony Planning, DJ Services, Dance Crew, Pyro Effects, Modelling Shoots, Brand Promotions, Surprise Events, MISS INDIA EVENTS"
         />
-        <meta property="og:title" content="MISSINDIA Events" />
+        <meta property="og:title" content="Luxury Event Management Services | MISS INDIA EVENTS" />
         <meta
           property="og:description"
-          content="Creating extraordinary celebrations through premium entertainment, styling and event experiences."
+          content="Discover premium event planning and celebration services for weddings, corporate gatherings, baby showers, modelling shoots, and unforgettable special occasions."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://missindiaevents.com/events" />
@@ -52,8 +53,9 @@ const Events = () => {
         </script>
       </Helmet>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col relative z-10 overflow-hidden bg-brand-dark">
         <EventsHero />
+        <EventGrid />
         <EventsShowcase />
         <EventsWhyChoose />
         <EventsGallery />

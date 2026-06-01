@@ -72,7 +72,8 @@ const DJServices = () => {
   ];
 
   return (
-    <main className="relative overflow-hidden">
+    <main className="relative overflow-hidden bg-brand-dark">
+      <NightSkyBackground />
       <Helmet>
         <title>Premium DJ Services | MISSINDIA</title>
         <meta name="description" content="Luxury DJ services for weddings, receptions, birthdays, corporate events, and premium celebrations by MISSINDIA." />
@@ -80,10 +81,9 @@ const DJServices = () => {
 
       {/* Hero Section */}
       <section 
-        className="hero-section w-full px-6 lg:px-12 pt-32 pb-12 lg:pb-24 relative z-10 flex flex-col lg:flex-row items-center min-h-screen bg-brand-dark overflow-hidden"
+        className="hero-section w-full px-6 lg:px-12 pt-32 pb-12 lg:pb-24 relative z-10 flex flex-col lg:flex-row items-center min-h-screen bg-transparent overflow-hidden"
         style={{ transform: 'translate3d(0, 0, 0)' }}
       >
-        <NightSkyBackground />
         <div className="container mx-auto flex flex-col lg:flex-row items-center w-full">
         {/* Left Content */}
         <div className="w-full lg:w-1/2 flex flex-col space-y-8 mt-12 lg:mt-0 order-2 lg:order-1 relative z-10">

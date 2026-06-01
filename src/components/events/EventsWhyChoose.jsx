@@ -1,6 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Calendar, Users, Award, Headphones } from 'lucide-react';
+import { 
+  Calendar, 
+  Award, 
+  Users, 
+  Headphones, 
+  Sparkles, 
+  Network, 
+  Palette, 
+  Clock, 
+  Crown, 
+  HeartHandshake 
+} from 'lucide-react';
 
 const stats = [
   { id: 1, label: 'Events Executed', value: 500, suffix: '+', icon: Calendar },
@@ -37,22 +48,36 @@ const AnimatedCounter = ({ target, suffix, inView }) => {
   );
 };
 
-const reasons = [
+const trustCards = [
   {
-    title: 'End-to-End Planning',
-    desc: 'From concept to completion, we handle every detail with precision and luxury.',
+    title: 'Personalized Planning',
+    desc: 'Customized timelines, bespoke designs, and tailor-made concepts that reflect your unique style and vision.',
+    icon: <Sparkles className="w-6 h-6 text-brand-accent" />,
   },
   {
-    title: 'Creative Excellence',
-    desc: 'Innovative themes and breathtaking setups that leave lasting impressions.',
+    title: 'Premium Vendor Network',
+    desc: 'Direct access to top-tier caterers, decorators, visual production teams, and premium entertainment artists.',
+    icon: <Network className="w-6 h-6 text-brand-accent" />,
   },
   {
-    title: 'Premium Vendors',
-    desc: 'Exclusive partnerships with top-tier vendors and entertainment professionals.',
+    title: 'Creative Event Concepts',
+    desc: 'Innovative themes, breathtaking stage setups, and immersive atmospheres designed to wow your guests.',
+    icon: <Palette className="w-6 h-6 text-brand-accent" />,
   },
   {
-    title: 'Flawless Execution',
-    desc: 'Meticulous coordination ensuring your event runs smoothly and seamlessly.',
+    title: 'Professional Coordination',
+    desc: 'Flawless logistics, timeline management, and on-site directors ensuring everything goes exactly as planned.',
+    icon: <Clock className="w-6 h-6 text-brand-accent" />,
+  },
+  {
+    title: 'Luxury Event Execution',
+    desc: 'Attention to the finest details, premium materials, and high-end visual and auditory productions.',
+    icon: <Crown className="w-6 h-6 text-brand-accent" />,
+  },
+  {
+    title: 'Seamless Guest Experience',
+    desc: 'From arrival to departure, we ensure your guests enjoy a comfortable, engaging, and memorable celebration.',
+    icon: <HeartHandshake className="w-6 h-6 text-brand-accent" />,
   },
 ];
 
@@ -81,24 +106,25 @@ const EventsWhyChoose = () => {
             transition={{ duration: 0.6 }}
             className="text-brand-accent text-xs md:text-sm uppercase tracking-[0.25em] font-body mb-4 block"
           >
-            The MISSINDIA Difference
+            The MISSINDIA Standard
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-5xl font-heading font-bold text-brand-secondary"
+            className="text-4xl md:text-5xl font-heading font-bold text-brand-secondary uppercase tracking-wider"
           >
-            Why{' '}
+            Why Clients Trust{' '}
             <span className="text-brand-accent italic font-light">
-              MISSINDIA Events
+              MISS INDIA EVENTS
             </span>
           </motion.h2>
+          <div className="w-24 h-0.5 bg-brand-accent mx-auto mt-6" />
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
           {stats.map((stat, index) => {
             const Icon = stat.icon;
             return (
@@ -130,27 +156,36 @@ const EventsWhyChoose = () => {
           })}
         </div>
 
-        {/* Reasons grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto">
-          {reasons.map((reason, index) => (
+        {/* Trust Cards grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {trustCards.map((card, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="glass-card p-8 rounded-2xl border border-brand-secondary/10 hover:border-brand-accent/40 hover:-translate-y-1 transition-all duration-500 group relative overflow-hidden"
+              transition={{ duration: 0.6, delay: index * 0.08 }}
+              className="glass-card p-8 rounded-2xl border border-brand-secondary/10 hover:border-brand-accent/40 hover:-translate-y-1 transition-all duration-500 group relative overflow-hidden flex flex-col"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-brand-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative z-10">
-                <div className="w-8 h-0.5 bg-brand-accent mb-5 group-hover:w-12 transition-all duration-500" />
-                <h4 className="font-heading text-xl text-white mb-3 group-hover:text-brand-accent transition-colors duration-300">
-                  {reason.title}
-                </h4>
-                <p className="text-brand-secondary/70 font-body text-sm leading-relaxed">
-                  {reason.desc}
-                </p>
+              
+              {/* Icon Container */}
+              <div className="w-12 h-12 rounded-xl bg-brand-dark/50 border border-brand-secondary/10 flex items-center justify-center mb-6 group-hover:bg-brand-accent group-hover:border-brand-accent group-hover:shadow-glow transition-all duration-500">
+                <div className="group-hover:text-brand-dark transition-colors duration-500">
+                  {card.icon}
+                </div>
               </div>
+
+              {/* Title & Description */}
+              <h4 className="font-heading text-xl text-white mb-3 uppercase tracking-wider group-hover:text-brand-accent transition-colors duration-300">
+                {card.title}
+              </h4>
+              <p className="text-brand-secondary/70 font-body text-sm leading-relaxed flex-grow">
+                {card.desc}
+              </p>
+
+              {/* Decorative Accent Line */}
+              <div className="w-8 h-0.5 bg-brand-accent mt-6 group-hover:w-16 transition-all duration-500" />
             </motion.div>
           ))}
         </div>

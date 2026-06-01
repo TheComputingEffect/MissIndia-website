@@ -12,6 +12,14 @@ import ComingSoon from './pages/ComingSoon';
 import Testimonials from './pages/Testimonials';
 import Contact from './pages/Contact';
 
+// New Event Pages
+import WeddingEngagementEvents from './pages/WeddingEngagementEvents';
+import PubertyCeremonyEvents from './pages/PubertyCeremonyEvents';
+import BabyShowerEvents from './pages/BabyShowerEvents';
+import CollaborationModellingShoots from './pages/CollaborationModellingShoots';
+import CorporateEvents from './pages/CorporateEvents';
+import SurpriseEvents from './pages/SurpriseEvents';
+
 function App() {
   useEffect(() => {
     const lenis = new Lenis({
@@ -49,6 +57,31 @@ function App() {
             <Route path="/events" element={<Events />} />
             <Route path="/events/dj-services" element={<DJServices />} />
             <Route path="/events/dance-crew" element={<DanceCrew />} />
+            
+            {/* Wedding & Engagement Routes */}
+            <Route path="/wedding-engagement-events" element={<WeddingEngagementEvents />} />
+            <Route path="/events/wedding-engagement-events" element={<WeddingEngagementEvents />} />
+            
+            {/* Puberty Ceremony Routes */}
+            <Route path="/puberty-ceremony-events" element={<PubertyCeremonyEvents />} />
+            <Route path="/events/puberty-ceremony-events" element={<PubertyCeremonyEvents />} />
+            
+            {/* Baby Shower Routes */}
+            <Route path="/baby-shower-events" element={<BabyShowerEvents />} />
+            <Route path="/events/baby-shower-events" element={<BabyShowerEvents />} />
+            
+            {/* Collaboration & Modelling Routes */}
+            <Route path="/collaboration-modelling-shoots" element={<CollaborationModellingShoots />} />
+            <Route path="/events/collaboration-modelling-shoots" element={<CollaborationModellingShoots />} />
+            
+            {/* Corporate Routes */}
+            <Route path="/corporate-events" element={<CorporateEvents />} />
+            <Route path="/events/corporate-events" element={<CorporateEvents />} />
+            
+            {/* Surprise Events Routes */}
+            <Route path="/surprise-events-for-loved-ones" element={<SurpriseEvents />} />
+            <Route path="/events/surprise-events-for-loved-ones" element={<SurpriseEvents />} />
+            
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/gallery" element={<ComingSoon title="Gallery" />} />
             <Route path="/packages" element={<ComingSoon title="Packages" />} />

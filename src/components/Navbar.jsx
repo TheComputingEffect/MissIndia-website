@@ -46,12 +46,12 @@ const Navbar = () => {
       dropdown: [
         { name: 'DJ Services', path: '/events/dj-services' },
         { name: 'Dance Crew with Pyros & Blast Effects', path: '/events/dance-crew' },
-        { name: 'Wedding & Engagement Events', path: '/events' },
-        { name: 'Puberty Ceremony Events', path: '/events' },
-        { name: 'Baby Shower Events', path: '/events' },
-        { name: 'Collaboration & Modelling Shoots', path: '/events' },
-        { name: 'Corporate Events', path: '/events' },
-        { name: 'Surprise Events for Loved Ones', path: '/events' }
+        { name: 'Wedding & Engagement Events', path: '/wedding-engagement-events' },
+        { name: 'Puberty Ceremony Events', path: '/puberty-ceremony-events' },
+        { name: 'Baby Shower Events', path: '/baby-shower-events' },
+        { name: 'Collaboration & Modelling Shoots', path: '/collaboration-modelling-shoots' },
+        { name: 'Corporate Events', path: '/corporate-events' },
+        { name: 'Surprise Events for Loved Ones', path: '/surprise-events-for-loved-ones' }
       ]
     },
     { name: 'Testimonials', path: '/testimonials' },
