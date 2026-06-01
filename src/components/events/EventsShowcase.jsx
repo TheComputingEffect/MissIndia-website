@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, X, Check } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import EventModal from './EventModal';
 
 const eventsData = [
   {
@@ -33,21 +34,7 @@ const eventsData = [
       'Celebrity Style Productions',
     ],
   },
-  {
-    id: 3,
-    title: 'MAKEOVERS, SAREE PRE-PLEATING & SAREE DRAPING',
-    image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80',
-    description:
-      'Professional makeup, hairstyling, saree draping, and complete event-ready looks for weddings, engagements, puberty functions, baby showers, and family celebrations.',
-    features: [
-      'Wedding Makeovers',
-      'Engagement Styling',
-      'Puberty Function Looks',
-      'Baby Shower Styling',
-      'Saree Pre-Pleating',
-      'Traditional & Modern Looks',
-    ],
-  },
+
   {
     id: 4,
     title: 'COLLABORATION SHOOTS, MODELLING SHOOTS & BRAND PROMOTIONS',
@@ -184,77 +171,7 @@ const EventCard = ({ event, index, onOpen }) => (
   </motion.div>
 );
 
-const EventModal = ({ event, onClose }) => (
-  <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-brand-dark/90 backdrop-blur-xl"
-    onClick={onClose}
-  >
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9, y: 30 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9, y: 30 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl glass-card border border-brand-secondary/20 shadow-[0_30px_80px_rgba(0,0,0,0.6)]"
-      onClick={(e) => e.stopPropagation()}
-    >
-      {/* Close */}
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-brand-dark/80 border border-brand-secondary/20 flex items-center justify-center text-brand-secondary hover:text-brand-accent hover:border-brand-accent/50 transition-colors duration-300"
-        aria-label="Close modal"
-      >
-        <X size={18} />
-      </button>
 
-      {/* Image */}
-      <div className="relative h-56 md:h-72 overflow-hidden rounded-t-3xl">
-        <img
-          src={event.image}
-          alt={event.title}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/40 to-transparent" />
-      </div>
-
-      {/* Body */}
-      <div className="p-8 md:p-10">
-        <h2 className="font-heading text-2xl md:text-3xl font-bold text-white mb-4">
-          {event.title}
-        </h2>
-        <p className="text-brand-secondary/80 font-body text-sm md:text-base leading-relaxed mb-8">
-          {event.description}
-        </p>
-
-        {/* Features */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
-          {event.features.map((feature, i) => (
-            <div
-              key={i}
-              className="flex items-center gap-3 text-brand-secondary/80 font-body text-sm"
-            >
-              <div className="w-5 h-5 rounded-full bg-brand-accent/10 border border-brand-accent/30 flex items-center justify-center flex-shrink-0">
-                <Check size={10} className="text-brand-accent" />
-              </div>
-              {feature}
-            </div>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <a
-          href="/contact"
-          className="inline-flex items-center px-8 py-3.5 bg-brand-accent text-brand-dark rounded-full font-body font-medium uppercase tracking-wider text-sm hover:bg-white hover:shadow-glow transition-all duration-300 group"
-        >
-          Book This Service
-          <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={16} />
-        </a>
-      </div>
-    </motion.div>
-  </motion.div>
-);
 
 const EventsShowcase = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -306,7 +223,7 @@ const EventsShowcase = () => {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8">
           {eventsData.map((event, index) => (
             <EventCard
               key={event.id}

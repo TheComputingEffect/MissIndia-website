@@ -24,7 +24,7 @@ const ChromeRibbonSculpture = () => {
             metalness={0.1}
             roughness={0.1}
             ior={1.5}
-            color="#ffffff"
+            color="#000000"
             envMapIntensity={2}
             clearcoat={1}
             clearcoatRoughness={0.1}
