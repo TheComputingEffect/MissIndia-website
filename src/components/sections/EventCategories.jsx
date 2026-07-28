@@ -49,7 +49,7 @@ const categories = [
 
 const SegmentedDisc = ({ images, isHovered }) => {
   const discRef = useRef(null);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(-1);
 
   useEffect(() => {
     const animation = gsap.to(discRef.current, {
@@ -64,11 +64,16 @@ const SegmentedDisc = ({ images, isHovered }) => {
   useEffect(() => {
     let interval;
     if (isHovered) {
+      setTimeout(() => {
+        setActiveIndex(0);
+      }, 0);
       interval = setInterval(() => {
         setActiveIndex((prev) => (prev + 1) % 3);
       }, 1800);
     } else {
-      setActiveIndex(-1);
+      setTimeout(() => {
+        setActiveIndex(-1);
+      }, 0);
     }
     return () => clearInterval(interval);
   }, [isHovered]);
@@ -202,19 +207,19 @@ const CustomCDPouch = ({ category, index }) => {
         <motion.div 
           className="absolute inset-0 z-10 rounded-xl overflow-hidden flex flex-col justify-between p-8 backdrop-blur-xl"
           style={{ 
-            borderRight: '3px solid #D9D6CF', 
-            borderLeft: '1px solid rgba(217, 214, 207, 0.4)',
-            borderTop: '1px solid rgba(217, 214, 207, 0.5)',
-            borderBottom: '1px solid rgba(217, 214, 207, 0.2)'
+            borderRight: '3px solid rgba(127, 231, 231, 0.4)', 
+            borderLeft: '1px solid rgba(127, 231, 231, 0.15)',
+            borderTop: '1px solid rgba(127, 231, 231, 0.2)',
+            borderBottom: '1px solid rgba(127, 231, 231, 0.05)'
           }}
           animate={{
             background: isHovered 
-              ? 'linear-gradient(135deg, rgba(217, 214, 207, 0.15) 0%, rgba(127, 231, 231, 0.12) 100%)' 
-              : 'linear-gradient(135deg, rgba(217, 214, 207, 0.08) 0%, rgba(127, 231, 231, 0.04) 100%)',
+              ? 'linear-gradient(135deg, rgba(2, 30, 32, 0.95) 0%, rgba(3, 59, 61, 0.8) 100%)' 
+              : 'linear-gradient(135deg, rgba(2, 30, 32, 0.85) 0%, rgba(3, 59, 61, 0.7) 100%)',
             boxShadow: isHovered 
-              ? 'inset 0 0 40px rgba(127,231,231,0.25), inset 1px 1px 5px rgba(255,255,255,0.6), 0 20px 50px rgba(127,231,231,0.15)' 
-              : 'inset 0 0 25px rgba(127,231,231,0.1), inset 1px 1px 3px rgba(255,255,255,0.4), 0 15px 40px rgba(0,0,0,0.5)',
-            borderColor: isHovered ? 'rgba(127, 231, 231, 0.6)' : 'rgba(217, 214, 207, 0.4)'
+              ? 'inset 0 0 40px rgba(127,231,231,0.25), inset 1px 1px 5px rgba(255,255,255,0.4), 0 20px 50px rgba(127,231,231,0.15)' 
+              : 'inset 0 0 25px rgba(127,231,231,0.1), inset 1px 1px 3px rgba(255,255,255,0.25), 0 15px 40px rgba(0,0,0,0.5)',
+            borderColor: isHovered ? 'rgba(127, 231, 231, 0.6)' : 'rgba(127, 231, 231, 0.25)'
           }}
           transition={{ duration: 0.8 }}
         >
@@ -226,17 +231,17 @@ const CustomCDPouch = ({ category, index }) => {
             animate={{
               background: isHovered 
                 ? 'linear-gradient(to left, rgba(127,231,231,0.25), transparent)' 
-                : 'linear-gradient(to left, rgba(217,214,207,0.15), transparent)',
+                : 'linear-gradient(to left, rgba(127,231,231,0.15), transparent)',
               boxShadow: isHovered
                 ? 'inset -4px 0 15px rgba(127,231,231,0.5)'
-                : 'inset -2px 0 10px rgba(217,214,207,0.3)'
+                : 'inset -2px 0 10px rgba(127,231,231,0.3)'
             }}
             transition={{ duration: 0.8 }}
           ></motion.div>
 
           {/* Light Sweep */}
           <motion.div 
-            className="absolute -inset-full bg-gradient-to-tr from-transparent via-[#D9D6CF]/30 to-transparent pointer-events-none origin-center blur-sm"
+            className="absolute -inset-full bg-gradient-to-tr from-transparent via-[#7FE7E7]/20 to-transparent pointer-events-none origin-center blur-sm"
             animate={{ rotate: isHovered ? 65 : 15, x: isHovered ? '70%' : '-70%' }}
             transition={{ duration: 1.5, ease: "power2.out" }}
           ></motion.div>
@@ -244,7 +249,7 @@ const CustomCDPouch = ({ category, index }) => {
           <div className="relative z-20">
             <motion.span 
               className="font-body text-[10px] md:text-xs tracking-[0.3em] uppercase mb-3 block"
-              animate={{ color: isHovered ? '#7FE7E7' : '#D9D6CF' }}
+              animate={{ color: isHovered ? '#7FE7E7' : 'rgba(127, 231, 231, 0.85)' }}
               transition={{ duration: 0.8 }}
             >
               Vol. 0{index + 1}
@@ -252,7 +257,7 @@ const CustomCDPouch = ({ category, index }) => {
             <motion.h3 
               className="text-3xl md:text-4xl font-heading font-bold tracking-wide leading-tight"
               animate={{ 
-                color: isHovered ? '#FFFFFF' : '#D9D6CF',
+                color: isHovered ? '#FFFFFF' : '#FFFFFF',
                 textShadow: isHovered ? '0 0 15px rgba(127,231,231,0.4)' : '0 0 0px rgba(0,0,0,0)'
               }}
               transition={{ duration: 0.8 }}
@@ -262,12 +267,12 @@ const CustomCDPouch = ({ category, index }) => {
           </div>
 
           <div className="relative z-20">
-            <p className="text-brand-secondary/80 font-body text-xs md:text-sm leading-relaxed mb-6 max-w-[200px]">
+            <p className="text-white/85 font-body text-xs md:text-sm leading-relaxed mb-6 max-w-[200px]">
               {category.description}
             </p>
             <motion.div 
               className="flex items-center font-body text-[10px] md:text-xs uppercase tracking-[0.2em] group/btn w-fit"
-              animate={{ color: isHovered ? '#7FE7E7' : '#D9D6CF' }}
+              animate={{ color: isHovered ? '#7FE7E7' : 'rgba(127, 231, 231, 0.85)' }}
               transition={{ duration: 0.8 }}
             >
               <span className="mr-3 group-hover/btn:mr-4 transition-all duration-300">Uncover</span>
@@ -282,7 +287,7 @@ const CustomCDPouch = ({ category, index }) => {
 
 const EventCategories = () => {
   return (
-    <section className="relative py-24 md:py-32 z-10 overflow-hidden bg-[#011415]">
+    <section className="relative py-24 md:py-32 z-10 overflow-hidden bg-transparent">
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-brand-accent/5 rounded-full blur-[100px]"></div>
         <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-brand-secondary/5 rounded-full blur-[100px]"></div>

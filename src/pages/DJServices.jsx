@@ -1,43 +1,18 @@
 import React, { useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Environment, Float, Sphere, MeshDistortMaterial, Sparkles } from '@react-three/drei';
 import { Play, Music, Sparkles as SparkleIcon, Zap, X } from 'lucide-react';
-import * as THREE from 'three';
-import NightSkyBackground from '../components/NightSkyBackground';
 
-// 3D Disco Ball Component
-const DiscoBall = () => {
-  const meshRef = useRef();
 
-  useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y = state.clock.elapsedTime * 0.2;
-      meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.1) * 0.1;
-    }
-  });
 
-  return (
-    <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
-      <group position={[0.5, -0.8, 0]} scale={window.innerWidth < 768 ? 0.6 : 0.85}>
-        <mesh ref={meshRef} castShadow>
-          <icosahedronGeometry args={[2.5, 4]} />
-        <meshStandardMaterial
-          color="#E5E7EB"
-          metalness={1}
-          roughness={0.1}
-          flatShading={true}
-          envMapIntensity={2.5}
-        />
-        </mesh>
-      </group>
-    </Float>
-  );
-};
+import { db } from '../services/db';
 
 const DJServices = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [coverImage] = useState(() => {
+    const covers = db.getCoverImages();
+    return covers.find(c => c.id === 'dj')?.imageUrl || "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1000&q=80";
+  });
 
   const services = [
     {
@@ -73,7 +48,6 @@ const DJServices = () => {
 
   return (
     <main className="relative overflow-hidden bg-brand-dark">
-      <NightSkyBackground />
       <Helmet>
         <title>Premium DJ Services | MISSINDIA</title>
         <meta name="description" content="Luxury DJ services for weddings, receptions, birthdays, corporate events, and premium celebrations by MISSINDIA." />
@@ -130,22 +104,21 @@ const DJServices = () => {
           </motion.div>
         </div>
 
-        {/* Right 3D Scene */}
-        <div className="w-full lg:w-1/2 h-[400px] lg:h-[600px] order-1 lg:order-2 relative z-0 overflow-hidden">
-          <Canvas
-            camera={{ position: [0, 0, 8], fov: 45 }}
-            gl={{ antialias: true, alpha: true }}
+        {/* Right Hero Image (Replaces 3D Canvas) */}
+        <div className="w-full lg:w-1/2 h-[350px] md:h-[450px] lg:h-[550px] order-1 lg:order-2 relative z-10 flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="relative w-full h-full rounded-3xl overflow-hidden border border-brand-secondary/20 shadow-glass"
           >
-            <ambientLight intensity={0.5} />
-            <directionalLight position={[10, 10, 10]} intensity={2} color="#7FE7E7" />
-            <directionalLight position={[-10, -10, -10]} intensity={1} color="#ffffff" />
-            <spotLight position={[0, 10, 0]} intensity={2} angle={0.5} penumbra={1} color="#7FE7E7" />
-            
-            {/* Primary Hero Object */}
-            <DiscoBall />
-            
-            <Environment preset="city" />
-          </Canvas>
+            <img
+              src={coverImage}
+              alt="Premium DJ Event Deck and Laser Lights"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/60 via-transparent to-transparent pointer-events-none" />
+          </motion.div>
         </div>
         </div>
       </section>

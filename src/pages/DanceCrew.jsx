@@ -1,70 +1,18 @@
 import React, { useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Environment, Float, Sparkles } from '@react-three/drei';
 import { Play, Flame, Star, Sparkles as SparkleIcon, X } from 'lucide-react';
-import * as THREE from 'three';
-import NightSkyBackground from '../components/NightSkyBackground';
 
-// 3D Pyro Gun Component
-const PyroGun = () => {
-  const groupRef = useRef();
 
-  useFrame((state) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y = state.clock.elapsedTime * 0.15;
-      groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.2) * 0.1;
-    }
-  });
 
-  return (
-    <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
-      <group ref={groupRef} position={[0.5, -0.8, 0]} scale={window.innerWidth < 768 ? 0.8 : 1.1}>
-        {/* Base / Mount */}
-        <mesh position={[0, -1, 0]}>
-          <cylinderGeometry args={[0.8, 1, 0.4, 32]} />
-          <meshStandardMaterial color="#0a0a0a" metalness={0.9} roughness={0.2} />
-        </mesh>
-        
-        {/* Main Cannon Body */}
-        <mesh position={[0, 0.2, 0]}>
-          <cylinderGeometry args={[0.5, 0.6, 2, 32]} />
-          <meshStandardMaterial color="#1a1a1a" metalness={0.8} roughness={0.1} />
-        </mesh>
-        
-        {/* Chrome Accent Top */}
-        <mesh position={[0, 1.2, 0]}>
-          <cylinderGeometry args={[0.55, 0.55, 0.15, 32]} />
-          <meshStandardMaterial color="#ffffff" metalness={1} roughness={0.05} />
-        </mesh>
-        
-        {/* Teal Accent Ring Bottom */}
-        <mesh position={[0, -0.6, 0]}>
-          <cylinderGeometry args={[0.65, 0.65, 0.1, 32]} />
-          <meshStandardMaterial color="#7FE7E7" metalness={0.9} roughness={0.1} emissive="#7FE7E7" emissiveIntensity={0.2} />
-        </mesh>
-
-        {/* Cold Sparks Burst */}
-        <group position={[0, 3, 0]}>
-          {/* We use a vertical scale to simulate the fountain effect of cold sparks */}
-          <Sparkles 
-            count={100} 
-            scale={[0.8, 4, 0.8]} 
-            size={2} 
-            color="#FFD700" 
-            opacity={0.8} 
-            speed={1.5} 
-            noise={0.1}
-          />
-        </group>
-      </group>
-    </Float>
-  );
-};
+import { db } from '../services/db';
 
 const DanceCrew = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [coverImage] = useState(() => {
+    const covers = db.getCoverImages();
+    return covers.find(c => c.id === 'dance')?.imageUrl || "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1000&q=80";
+  });
 
   const services = [
     {
@@ -100,7 +48,6 @@ const DanceCrew = () => {
 
   return (
     <main className="relative overflow-hidden bg-brand-dark">
-      <NightSkyBackground />
       <Helmet>
         <title>Luxury Dance Crew & Effects | MISSINDIA</title>
         <meta name="description" content="Premium dance crew and stage effects including cold sparks and choreographies by MISSINDIA." />
@@ -157,22 +104,21 @@ const DanceCrew = () => {
           </motion.div>
         </div>
 
-        {/* Right 3D Scene */}
-        <div className="w-full lg:w-1/2 h-[400px] lg:h-[600px] order-1 lg:order-2 relative z-0 overflow-hidden">
-          <Canvas
-            camera={{ position: [0, 0, 8], fov: 45 }}
-            gl={{ antialias: true, alpha: true }}
+        {/* Right Hero Image (Replaces 3D Canvas) */}
+        <div className="w-full lg:w-1/2 h-[350px] md:h-[450px] lg:h-[550px] order-1 lg:order-2 relative z-10 flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="relative w-full h-full rounded-3xl overflow-hidden border border-brand-secondary/20 shadow-glass"
           >
-            <ambientLight intensity={0.5} />
-            <directionalLight position={[10, 10, 10]} intensity={2} color="#7FE7E7" />
-            <directionalLight position={[-10, -10, -10]} intensity={1} color="#ffffff" />
-            <spotLight position={[0, 10, 0]} intensity={2} angle={0.5} penumbra={1} color="#7FE7E7" />
-            
-            {/* Primary Hero Object */}
-            <PyroGun />
-            
-            <Environment preset="city" />
-          </Canvas>
+            <img
+              src={coverImage}
+              alt="Luxury Dance Performance stage with Cold Sparks Blast Effects"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/60 via-transparent to-transparent pointer-events-none" />
+          </motion.div>
         </div>
         </div>
       </section>

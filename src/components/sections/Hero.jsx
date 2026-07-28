@@ -2,9 +2,11 @@ import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { useConsultation } from '../../utils/ConsultationContext';
 
 const Hero = () => {
   const containerRef = useRef(null);
+  const { openModal } = useConsultation();
 
   const stagger = {
     hidden: { opacity: 0 },
@@ -63,10 +65,10 @@ const Hero = () => {
               Explore Services
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
             </Link>
-            <Link to="/contact" className="px-8 py-4 border border-brand-secondary/50 text-brand-secondary rounded-full font-body font-medium uppercase tracking-wider hover:border-brand-accent hover:text-brand-accent transition-all duration-300 w-full sm:w-auto glass-card group relative overflow-hidden">
+            <button onClick={openModal} className="px-8 py-4 border border-brand-secondary/50 text-brand-secondary rounded-full font-body font-medium uppercase tracking-wider hover:border-brand-accent hover:text-brand-accent transition-all duration-300 w-full sm:w-auto glass-card group relative overflow-hidden cursor-pointer">
               <span className="relative z-10">Book Consultation</span>
               <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent z-0"></div>
-            </Link>
+            </button>
           </motion.div>
         </motion.div>
       </div>

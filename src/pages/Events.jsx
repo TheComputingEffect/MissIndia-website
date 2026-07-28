@@ -4,8 +4,6 @@ import EventsHero from '../components/events/EventsHero';
 import EventGrid from '../components/events/EventGrid';
 import EventsShowcase from '../components/events/EventsShowcase';
 import EventsWhyChoose from '../components/events/EventsWhyChoose';
-import EventsGallery from '../components/events/EventsGallery';
-import EventsTestimonials from '../components/events/EventsTestimonials';
 import EventsCTA from '../components/events/EventsCTA';
 
 const Events = () => {
@@ -58,8 +56,6 @@ const Events = () => {
         <EventGrid />
         <EventsShowcase />
         <EventsWhyChoose />
-        <EventsGallery />
-        <EventsTestimonials />
         <EventsCTA />
       </div>
     </>

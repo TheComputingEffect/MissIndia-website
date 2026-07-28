@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import clsx from 'clsx';
 
 const faqs = [
@@ -22,11 +22,12 @@ const faqs = [
   }
 ];
 
-const FAQItem = ({ faq, isOpen, onClick }) => {
+const FAQItem = ({ faq, isOpen, onClick, onMouseEnter }) => {
   return (
     <div className="border-b border-brand-secondary/10">
       <button
         onClick={onClick}
+        onMouseEnter={onMouseEnter}
         className="w-full flex justify-between items-center py-6 focus:outline-none group text-left"
       >
         <h4 className={clsx(
@@ -39,7 +40,7 @@ const FAQItem = ({ faq, isOpen, onClick }) => {
           "flex-shrink-0 w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-500",
           isOpen ? "border-brand-accent text-brand-accent bg-brand-accent/10" : "border-brand-secondary/20 text-brand-secondary group-hover:border-brand-accent/50"
         )}>
-          <Plus size={20} className={clsx("transition-transform duration-500", isOpen ? "rotate-45" : "rotate-0")} />
+          <ChevronDown size={20} className={clsx("transition-transform duration-500", isOpen ? "rotate-180" : "rotate-0")} />
         </div>
       </button>
       
@@ -63,7 +64,13 @@ const FAQItem = ({ faq, isOpen, onClick }) => {
 };
 
 const FAQ = () => {
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState(-1);
+
+  const handleMouseLeaveContainer = () => {
+    if (window.matchMedia('(hover: hover)').matches) {
+      setOpenIndex(-1);
+    }
+  };
 
   return (
     <section className="relative py-24 z-10">
@@ -80,13 +87,19 @@ const FAQ = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           className="glass-card p-8 md:p-12 rounded-3xl"
+          onMouseLeave={handleMouseLeaveContainer}
         >
           {faqs.map((faq, index) => (
             <FAQItem
               key={index}
               faq={faq}
               isOpen={openIndex === index}
-              onClick={() => setOpenIndex(index === openIndex ? -1 : index)}
+              onClick={() => setOpenIndex(openIndex === index ? -1 : index)}
+              onMouseEnter={() => {
+                if (window.matchMedia('(hover: hover)').matches) {
+                  setOpenIndex(index);
+                }
+              }}
             />
           ))}
         </motion.div>

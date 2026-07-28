@@ -3,25 +3,36 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown, ChevronUp } from 'lucide-react';
 import clsx from 'clsx';
+import { useConsultation } from '../utils/ConsultationContext';
+
+import logoPng from '../assets/logo.png';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const location = useLocation();
+  const { openModal } = useConsultation();
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      const isScrolled = window.scrollY > 50;
+      setScrolled((prev) => {
+        if (prev !== isScrolled) return isScrolled;
+        return prev;
+      });
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Close mobile menu and reset dropdowns on route change
   useEffect(() => {
-    setMobileMenuOpen(false);
-    setActiveDropdown(null);
+    const timer = setTimeout(() => {
+      setMobileMenuOpen(false);
+      setActiveDropdown(null);
+    }, 0);
+    return () => clearTimeout(timer);
   }, [location.pathname]);
 
   // Lock body scroll when mobile menu is open
@@ -38,7 +49,6 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
     { name: 'Services', path: '/services' },
     { 
       name: 'Events', 
@@ -62,16 +72,22 @@ const Navbar = () => {
   return (
     <header
       className={clsx(
-        'fixed top-0 left-0 w-full z-50 transition-all duration-500',
-        scrolled ? 'bg-brand-dark/80 backdrop-blur-xl border-b border-brand-secondary/20 py-4 shadow-glass' : 'bg-transparent py-6'
+        'fixed top-0 left-0 w-full z-50 transition-all duration-200',
+        scrolled ? 'bg-[#011415]/90 backdrop-blur-md border-b border-brand-accent/20 py-3 shadow-glass' : 'bg-transparent py-5'
       )}
     >
       <div className="container mx-auto px-6 lg:px-12 flex justify-between items-center lg:grid lg:grid-cols-3 lg:gap-4">
         {/* Column 1: Logo */}
         <div className="flex justify-start items-center">
-          <Link to="/" className="text-2xl md:text-3xl font-heading font-bold tracking-widest text-brand-secondary relative group whitespace-nowrap">
-            MISSINDIA
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
+          <Link to="/" className="relative group flex flex-col items-center justify-center text-center">
+            <img 
+              src={logoPng} 
+              alt="MISS INDIA" 
+              className="h-8 md:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]" 
+            />
+            <span className="font-heading font-bold text-xs md:text-sm tracking-[0.25em] text-white group-hover:text-brand-accent transition-colors uppercase mt-1 leading-none">
+              MISS INDIA
+            </span>
           </Link>
         </div>
 
@@ -111,13 +127,13 @@ const Navbar = () => {
               <AnimatePresence>
                 {link.dropdown && activeDropdown === link.name && (
                   <motion.div 
-                    initial={{ opacity: 0, y: 10, visibility: 'hidden' }}
-                    animate={{ opacity: 1, y: 0, visibility: 'visible' }}
-                    exit={{ opacity: 0, y: 10, visibility: 'hidden' }}
-                    transition={{ duration: 0.2 }}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.15, ease: 'easeOut' }}
                     className="absolute top-[80%] left-1/2 -translate-x-1/2 pt-4 w-[340px]"
                   >
-                    <div className="bg-brand-dark/95 backdrop-blur-xl border border-brand-secondary/20 rounded-2xl shadow-glass overflow-hidden relative">
+                    <div className="bg-brand-dark/95 backdrop-blur-md border border-brand-secondary/20 rounded-2xl shadow-glass overflow-hidden relative">
                       {/* Decorative Top Accent */}
                       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-accent to-transparent opacity-50" />
                       
@@ -145,13 +161,13 @@ const Navbar = () => {
         <div className="flex justify-end items-center">
           {/* Desktop CTA Button */}
           <div className="hidden lg:block">
-            <Link
-              to="/contact"
-              className="relative min-w-[220px] xl:min-w-[245px] h-12 flex items-center justify-center rounded-full border border-brand-secondary/30 text-brand-secondary font-body text-xs xl:text-sm uppercase tracking-widest overflow-hidden group hover:border-brand-accent transition-all duration-500 glass-card whitespace-nowrap px-6 shadow-glass"
+            <button
+              onClick={openModal}
+              className="relative min-w-[220px] xl:min-w-[245px] h-12 flex items-center justify-center rounded-full border-2 border-brand-accent text-brand-accent font-body text-xs xl:text-sm uppercase tracking-widest overflow-hidden group bg-brand-accent/15 hover:bg-brand-accent hover:text-brand-dark transition-all duration-500 whitespace-nowrap px-6 shadow-[0_0_20px_rgba(127,231,231,0.5)] hover:shadow-[0_0_30px_rgba(127,231,231,0.85)] cursor-pointer"
             >
-              <span className="relative z-10 group-hover:text-brand-accent transition-colors duration-300">Book Consultation</span>
-              <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent z-0"></div>
-            </Link>
+              <span className="relative z-10 font-bold tracking-widest">Book Consultation</span>
+              <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/30 to-transparent z-0"></div>
+            </button>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -171,8 +187,8 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="lg:hidden absolute top-full left-0 w-full bg-brand-dark/95 backdrop-blur-xl border-b border-brand-secondary/20 shadow-glass"
+            transition={{ duration: 0.2 }}
+            className="lg:hidden absolute top-full left-0 w-full bg-brand-dark/95 backdrop-blur-md border-b border-brand-secondary/20 shadow-glass"
           >
             <div className="flex flex-col px-6 py-8 space-y-6 max-h-[80vh] overflow-y-auto">
               {navLinks.map((link) => (
@@ -231,16 +247,16 @@ const Navbar = () => {
                   </AnimatePresence>
                 </div>
               ))}
-              <Link
-                to="/contact"
-                className="mt-6 w-full h-12 flex items-center justify-center rounded-full border border-brand-accent text-brand-accent font-body text-sm uppercase tracking-widest bg-brand-accent/10 hover:bg-brand-accent hover:text-brand-dark transition-all duration-300 whitespace-nowrap shadow-glass"
+              <button
                 onClick={() => {
                   setMobileMenuOpen(false);
                   setActiveDropdown(null);
+                  openModal();
                 }}
+                className="mt-6 w-full h-12 flex items-center justify-center rounded-full border-2 border-brand-accent text-brand-accent font-body text-sm font-bold uppercase tracking-widest bg-brand-accent/20 hover:bg-brand-accent hover:text-brand-dark transition-all duration-300 whitespace-nowrap shadow-[0_0_20px_rgba(127,231,231,0.6)] cursor-pointer"
               >
                 Book Consultation
-              </Link>
+              </button>
             </div>
           </motion.div>
         )}

@@ -1,69 +1,18 @@
 import React, { useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Environment, Float, Sparkles } from '@react-three/drei';
-import { CalendarHeart, Star, Sparkles as SparkleIcon, Heart, X, Smile, ShieldCheck, MapPin, Phone, MessageSquare, ExternalLink } from 'lucide-react';
-import NightSkyBackground from '../components/NightSkyBackground';
+import { CalendarHeart, Star, Sparkles as SparkleIcon, Heart, X, Smile, ShieldCheck, MessageSquare, ExternalLink } from 'lucide-react';
 
-// 3D Romantic Double Rings Component
-const DoubleRings = () => {
-  const groupRef = useRef();
 
-  useFrame((state) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y = state.clock.elapsedTime * 0.2;
-      groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.1) * 0.1;
-    }
-  });
 
-  return (
-    <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
-      <group ref={groupRef} position={[0, -0.2, 0]} scale={window.innerWidth < 768 ? 0.7 : 0.95}>
-        {/* Ring 1 (Gold Glass) */}
-        <mesh position={[-0.6, 0, 0]} rotation={[0.5, 0.5, 0]}>
-          <torusGeometry args={[1.5, 0.18, 32, 100]} />
-          <meshPhysicalMaterial 
-            color="#FFD700" 
-            metalness={0.9} 
-            roughness={0.15} 
-            transmission={0.4} 
-            ior={1.8} 
-            envMapIntensity={2} 
-          />
-        </mesh>
-        
-        {/* Ring 2 (Rose Gold / Silver Glass) */}
-        <mesh position={[0.6, 0, 0]} rotation={[-0.5, 0.5, 0.2]}>
-          <torusGeometry args={[1.5, 0.18, 32, 100]} />
-          <meshPhysicalMaterial 
-            color="#FFC0CB" 
-            metalness={0.8} 
-            roughness={0.1} 
-            transmission={0.5} 
-            ior={1.6} 
-            envMapIntensity={2.5} 
-          />
-        </mesh>
-
-        {/* Heart Sparkle Core */}
-        <group position={[0, 0.2, 0]}>
-          <Sparkles 
-            count={60} 
-            scale={[3, 3, 3]} 
-            size={3} 
-            color="#FF7F50" 
-            opacity={0.8} 
-            speed={0.5} 
-          />
-        </group>
-      </group>
-    </Float>
-  );
-};
+import { db } from '../services/db';
 
 const WeddingEngagementEvents = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [coverImage] = useState(() => {
+    const covers = db.getCoverImages();
+    return covers.find(c => c.id === 'wedding')?.imageUrl || "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80";
+  });
 
   // 1. Overview Section Services (4 cards)
   const services = [
@@ -208,7 +157,6 @@ const WeddingEngagementEvents = () => {
 
   return (
     <main className="relative overflow-hidden bg-[#021E20]">
-      <NightSkyBackground />
       {/* Complete SEO Optimization */}
       <Helmet>
         <title>Wedding & Engagement Event Services | MISS INDIA EVENTS</title>
@@ -351,21 +299,21 @@ const WeddingEngagementEvents = () => {
             </motion.div>
           </div>
 
-          {/* Right 3D Scene */}
-          <div className="w-full lg:w-1/2 h-[400px] lg:h-[600px] order-1 lg:order-2 relative z-0 overflow-hidden">
-            <Canvas
-              camera={{ position: [0, 0, 8], fov: 45 }}
-              gl={{ antialias: true, alpha: true }}
+          {/* Right Hero Image (Replaces 3D Canvas) */}
+          <div className="w-full lg:w-1/2 h-[350px] md:h-[450px] lg:h-[550px] order-1 lg:order-2 relative z-10 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              className="relative w-full h-full rounded-3xl overflow-hidden border border-brand-secondary/20 shadow-glass"
             >
-              <ambientLight intensity={0.5} />
-              <directionalLight position={[10, 10, 10]} intensity={2} color="#7FE7E7" />
-              <directionalLight position={[-10, -10, -10]} intensity={1} color="#ffffff" />
-              <spotLight position={[0, 10, 0]} intensity={2} angle={0.5} penumbra={1} color="#7FE7E7" />
-              
-              <DoubleRings />
-              
-              <Environment preset="city" />
-            </Canvas>
+              <img
+                src={coverImage}
+                alt="Luxury Wedding Setup"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/60 via-transparent to-transparent pointer-events-none" />
+            </motion.div>
           </div>
         </div>
       </section>

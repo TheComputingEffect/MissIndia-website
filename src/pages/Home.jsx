@@ -3,13 +3,10 @@ import { Helmet } from 'react-helmet-async';
 import Hero from '../components/sections/Hero';
 import TrustedStats from '../components/sections/TrustedStats';
 import EventCategories from '../components/sections/EventCategories';
-import AboutPreview from '../components/sections/AboutPreview';
 import FeaturedGallery from '../components/sections/FeaturedGallery';
 import WhyChooseUs from '../components/sections/WhyChooseUs';
 import ProcessTimeline from '../components/sections/ProcessTimeline';
 import Testimonials from '../components/sections/Testimonials';
-import PackagesPreview from '../components/sections/PackagesPreview';
-import FAQ from '../components/sections/FAQ';
 import FinalCTA from '../components/sections/FinalCTA';
 
 const Home = () => {
@@ -24,13 +21,10 @@ const Home = () => {
         <Hero />
         <TrustedStats />
         <EventCategories />
-        <AboutPreview />
         <FeaturedGallery />
         <WhyChooseUs />
         <ProcessTimeline />
         <Testimonials />
-        <PackagesPreview />
-        <FAQ />
         <FinalCTA />
       </div>
     </>

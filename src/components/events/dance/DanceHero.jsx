@@ -2,8 +2,7 @@ import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Environment, Float, Sparkles, OrbitControls, useHelper } from '@react-three/drei';
-import * as THREE from 'three';
+import { Environment, Float, Sparkles, OrbitControls } from '@react-three/drei';
 
 const AbstractDancer = () => {
   const groupRef = useRef();

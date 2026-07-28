@@ -4,10 +4,20 @@
 @layer base {
   body {
     @apply bg-brand-dark text-brand-secondary font-body overflow-x-hidden antialiased;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading text-brand-secondary;
+  }
+
+  /* GPU Hardware Acceleration for all interactive and animated elements to improve scroll and hover performance */
+  a, button, select, input, textarea, .glass-card, [class*="hover:"], [class*="group-hover:"] {
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    will-change: transform, opacity, colors;
   }
 }
 
@@ -17,7 +27,7 @@
   }
   
   .glass-card {
-    @apply bg-glass-gradient backdrop-blur-md border border-white/10 shadow-glass;
+    @apply bg-glass-gradient backdrop-blur-sm border border-white/10 shadow-glass;
   }
 
   .text-gradient {

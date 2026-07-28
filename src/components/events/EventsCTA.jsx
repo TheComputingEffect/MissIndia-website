@@ -2,8 +2,17 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { CalendarHeart, FileText } from 'lucide-react';
+import { useConsultation } from '../../utils/ConsultationContext';
+
+const STATIC_EVENTS_CTA_PARTICLES = [...Array(15)].map(() => ({
+  top: `${Math.random() * 100}%`,
+  left: `${Math.random() * 100}%`,
+  duration: `${10 + Math.random() * 10}s`,
+  delay: `${Math.random() * 5}s`
+}));
 
 const EventsCTA = () => {
+  const { openModal } = useConsultation();
   return (
     <section
       id="events-cta"
@@ -19,14 +28,14 @@ const EventsCTA = () => {
 
         {/* Floating particles */}
         <div className="absolute inset-0 pointer-events-none opacity-30">
-          {[...Array(15)].map((_, i) => (
+          {STATIC_EVENTS_CTA_PARTICLES.map((p, i) => (
             <div
               key={i}
               className="absolute w-1.5 h-1.5 rounded-full bg-brand-accent shadow-[0_0_10px_#7FE7E7]"
               style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                animation: `ctaFloat ${10 + Math.random() * 10}s ease-in-out ${Math.random() * 5}s infinite`,
+                top: p.top,
+                left: p.left,
+                animation: `ctaFloat ${p.duration} ease-in-out ${p.delay} infinite`,
               }}
             />
           ))}
@@ -87,16 +96,16 @@ const EventsCTA = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-5 relative z-10"
           >
-            <Link
-              to="/contact"
-              className="w-full sm:w-auto px-8 py-4 bg-brand-accent text-brand-dark rounded-full font-body font-medium uppercase tracking-wider text-sm hover:bg-white hover:shadow-[0_0_30px_rgba(127,231,231,0.6)] transition-all duration-300 flex items-center justify-center group/btn"
+            <button
+              onClick={openModal}
+              className="w-full sm:w-auto px-8 py-4 bg-brand-accent text-brand-dark rounded-full font-body font-medium uppercase tracking-wider text-sm hover:bg-white hover:shadow-[0_0_30px_rgba(127,231,231,0.6)] transition-all duration-300 flex items-center justify-center group/btn cursor-pointer"
             >
               <CalendarHeart
                 className="mr-3 group-hover/btn:scale-110 transition-transform"
                 size={20}
               />
               Book Consultation
-            </Link>
+            </button>
             <Link
               to="/contact"
               className="w-full sm:w-auto px-8 py-4 border border-brand-secondary/40 text-brand-secondary rounded-full font-body font-medium uppercase tracking-wider text-sm hover:border-brand-accent hover:text-brand-accent transition-all duration-300 flex items-center justify-center bg-brand-dark/50 backdrop-blur-sm group/btn"

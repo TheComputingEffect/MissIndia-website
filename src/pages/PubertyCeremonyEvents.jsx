@@ -1,79 +1,18 @@
 import React, { useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Environment, Float, Sparkles } from '@react-three/drei';
-import { Flower2, Star, Sparkles as SparkleIcon, Heart, X, Smile, ShieldCheck, MapPin, MessageSquare, ExternalLink } from 'lucide-react';
-import NightSkyBackground from '../components/NightSkyBackground';
+import { Flower2, Star, Sparkles as SparkleIcon, Heart, X, Smile, ShieldCheck, MessageSquare, ExternalLink } from 'lucide-react';
 
-// 3D LotusGlow Abstract Sculpture Component
-const LotusGlow = () => {
-  const groupRef = useRef();
 
-  useFrame((state) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y = state.clock.elapsedTime * 0.15;
-      groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.1) * 0.08;
-    }
-  });
 
-  return (
-    <Float speed={2.5} rotationIntensity={0.4} floatIntensity={1}>
-      <group ref={groupRef} position={[0, -0.2, 0]} scale={window.innerWidth < 768 ? 0.75 : 1.05}>
-        {/* Central Core Sphere */}
-        <mesh>
-          <sphereGeometry args={[0.7, 32, 32]} />
-          <meshPhysicalMaterial 
-            color="#FF8C00" 
-            metalness={0.1} 
-            roughness={0.1} 
-            transmission={0.9} 
-            ior={1.5} 
-            emissive="#FF8C00"
-            emissiveIntensity={0.3}
-          />
-        </mesh>
-
-        {/* Lotus Petal Layers */}
-        {[...Array(6)].map((_, i) => {
-          const rotationAngle = (i * Math.PI) / 3;
-          return (
-            <group key={i} rotation={[0.4, 0, rotationAngle]}>
-              <mesh position={[0, 1.2, 0]}>
-                <torusGeometry args={[0.8, 0.1, 16, 64, Math.PI]} />
-                <meshStandardMaterial 
-                  color="#FFD700" 
-                  metalness={0.9} 
-                  roughness={0.2} 
-                />
-              </mesh>
-              <mesh position={[0, 0.7, 0]} scale={[0.5, 1, 0.2]}>
-                <sphereGeometry args={[0.6, 16, 16]} />
-                <meshPhysicalMaterial 
-                  color="#FFC0CB" 
-                  transmission={0.8}
-                  opacity={0.8}
-                  roughness={0.1}
-                />
-              </mesh>
-            </group>
-          );
-        })}
-
-        {/* Gold Ring Accent */}
-        <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, -0.6, 0]}>
-          <torusGeometry args={[2, 0.08, 16, 100]} />
-          <meshStandardMaterial color="#FFD700" metalness={1} roughness={0.1} />
-        </mesh>
-
-        <Sparkles count={50} scale={4} size={3} color="#FFD700" opacity={0.7} speed={0.4} />
-      </group>
-    </Float>
-  );
-};
+import { db } from '../services/db';
 
 const PubertyCeremonyEvents = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [coverImage] = useState(() => {
+    const covers = db.getCoverImages();
+    return covers.find(c => c.id === 'puberty')?.imageUrl || "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?auto=format&fit=crop&w=1000&q=80";
+  });
 
   // 1. Overview Section Services (4 cards)
   const services = [
@@ -218,7 +157,6 @@ const PubertyCeremonyEvents = () => {
 
   return (
     <main className="relative overflow-hidden bg-[#021E20]">
-      <NightSkyBackground />
       {/* Complete SEO Optimization */}
       <Helmet>
         <title>Puberty Ceremony Event Planning Services | MISS INDIA EVENTS</title>
@@ -361,21 +299,21 @@ const PubertyCeremonyEvents = () => {
             </motion.div>
           </div>
 
-          {/* Right 3D Scene */}
-          <div className="w-full lg:w-1/2 h-[400px] lg:h-[600px] order-1 lg:order-2 relative z-0 overflow-hidden">
-            <Canvas
-              camera={{ position: [0, 0, 8], fov: 45 }}
-              gl={{ antialias: true, alpha: true }}
+          {/* Right Hero Image (Replaces 3D Canvas) */}
+          <div className="w-full lg:w-1/2 h-[350px] md:h-[450px] lg:h-[550px] order-1 lg:order-2 relative z-10 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              className="relative w-full h-full rounded-3xl overflow-hidden border border-brand-secondary/20 shadow-glass"
             >
-              <ambientLight intensity={0.5} />
-              <directionalLight position={[10, 10, 10]} intensity={2} color="#7FE7E7" />
-              <directionalLight position={[-10, -10, -10]} intensity={1} color="#ffffff" />
-              <spotLight position={[0, 10, 0]} intensity={2} angle={0.5} penumbra={1} color="#7FE7E7" />
-              
-              <LotusGlow />
-              
-              <Environment preset="city" />
-            </Canvas>
+              <img
+                src={coverImage}
+                alt="Traditional Indian Flower Stage Decor"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/60 via-transparent to-transparent pointer-events-none" />
+            </motion.div>
           </div>
         </div>
       </section>

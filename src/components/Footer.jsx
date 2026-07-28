@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import logoPng from '../assets/logo.png';
 
 import {
   FaInstagram,
@@ -16,9 +17,11 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="relative z-10 border-t border-brand-secondary/10 bg-brand-dark pt-20 pb-10">
+    <footer className="relative z-10 border-t-2 border-brand-accent bg-gradient-to-b from-[#033B3D] to-[#02282a] pt-20 pb-10 shadow-[0_-15px_40px_rgba(3,59,61,0.4)]">
+      {/* Decorative top cyan glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[2px] bg-gradient-to-r from-transparent via-brand-accent to-transparent shadow-[0_0_15px_#7FE7E7]" />
       
-      <div className="container mx-auto px-6 lg:px-12">
+      <div className="container mx-auto px-6 lg:px-12 relative z-10">
 
         {/* TOP FOOTER */}
         <div className="mb-16 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
@@ -28,9 +31,16 @@ const Footer = () => {
 
             <Link
               to="/"
-              className="font-heading text-3xl font-bold tracking-[0.25em] text-brand-secondary"
+              className="inline-flex flex-col items-start group"
             >
-              MISSINDIA
+              <img 
+                src={logoPng} 
+                alt="MISS INDIA" 
+                className="h-10 md:h-12 w-auto object-contain filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] transition-transform duration-300 group-hover:scale-105" 
+              />
+              <span className="font-heading font-bold text-sm tracking-[0.25em] text-white group-hover:text-brand-accent transition-colors uppercase mt-1 leading-none">
+                MISS INDIA
+              </span>
             </Link>
 
             <p className="max-w-xs font-body text-sm leading-relaxed text-brand-secondary/70">
@@ -89,20 +99,19 @@ const Footer = () => {
             <ul className="space-y-4">
 
               {[
-                'Home',
-                'About',
-                'Gallery',
-                'Packages',
-                'Blogs',
-                'Contact',
+                { label: 'Home', path: '/' },
+                { label: 'Services', path: '/services' },
+                { label: 'Events', path: '/events' },
+                { label: 'Gallery', path: '/gallery' },
+                { label: 'Contact', path: '/contact' },
               ].map((link) => (
-                <li key={link}>
+                <li key={link.label}>
 
                   <Link
-                    to={`/${link.toLowerCase()}`}
+                    to={link.path}
                     className="font-body text-sm text-brand-secondary/70 transition-colors duration-300 hover:text-brand-accent"
                   >
-                    {link}
+                    {link.label}
                   </Link>
 
                 </li>
@@ -159,7 +168,7 @@ const Footer = () => {
                 />
 
                 <span>
-                  Coimbatore, Tamil Nadu, India
+                  72, Brindavan Nagar, PNT Colony, Kavundampalayam, Coimbatore – 641030
                 </span>
 
               </li>
@@ -171,9 +180,9 @@ const Footer = () => {
                   className="flex-shrink-0 text-brand-accent"
                 />
 
-                <span>
-                  +91 98765 43210
-                </span>
+                <a href="tel:+917904516541" className="hover:text-brand-accent transition-colors">
+                  +91 79045 16541
+                </a>
 
               </li>
 
@@ -184,9 +193,9 @@ const Footer = () => {
                   className="flex-shrink-0 text-brand-accent"
                 />
 
-                <span>
-                  hello@missindiaevents.com
-                </span>
+                <a href="mailto:varshaevents.21@gmail.com" className="hover:text-brand-accent transition-colors break-all">
+                  varshaevents.21@gmail.com
+                </a>
 
               </li>
 

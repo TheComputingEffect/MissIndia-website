@@ -24,8 +24,14 @@ export default {
         'dark-glass': 'linear-gradient(to bottom, rgba(2, 30, 32, 0.8), rgba(2, 30, 32, 0.95))',
       },
       boxShadow: {
-        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
-        'glow': '0 0 20px rgba(127, 231, 231, 0.4)',
+        'glass': '0 4px 16px 0 rgba(0, 0, 0, 0.25)',
+        'glow': '0 0 10px rgba(127, 231, 231, 0.3)',
+      },
+      transitionDuration: {
+        '300': '150ms',
+        '500': '180ms',
+        '700': '200ms',
+        '1000': '200ms',
       }
     },
   },

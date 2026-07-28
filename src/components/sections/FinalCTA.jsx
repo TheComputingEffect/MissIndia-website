@@ -2,8 +2,17 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { MessageCircle, CalendarHeart } from 'lucide-react';
+import { useConsultation } from '../../utils/ConsultationContext';
+
+const STATIC_FINAL_CTA_PARTICLES = [...Array(20)].map(() => ({
+  top: `${Math.random() * 100}%`,
+  left: `${Math.random() * 100}%`,
+  delay: `${Math.random() * 5}s`,
+  duration: `${10 + Math.random() * 10}s`
+}));
 
 const FinalCTA = () => {
+  const { openModal } = useConsultation();
   return (
     <section className="relative py-32 z-10 overflow-hidden mt-12">
       {/* Cinematic Background */}
@@ -18,15 +27,15 @@ const FinalCTA = () => {
 
         {/* Floating Particles (CSS Animation) */}
         <div className="absolute inset-0 z-10 pointer-events-none opacity-40">
-          {[...Array(20)].map((_, i) => (
+          {STATIC_FINAL_CTA_PARTICLES.map((p, i) => (
             <div 
               key={i}
               className="absolute w-1.5 h-1.5 rounded-full bg-brand-accent shadow-[0_0_10px_#7FE7E7] animate-[float_10s_ease-in-out_infinite]"
               style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${10 + Math.random() * 10}s`
+                top: p.top,
+                left: p.left,
+                animationDelay: p.delay,
+                animationDuration: p.duration
               }}
             />
           ))}
@@ -52,10 +61,10 @@ const FinalCTA = () => {
           </h2>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 relative z-10">
-            <Link to="/contact" className="w-full sm:w-auto px-8 py-4 bg-brand-accent text-brand-dark rounded-full font-body font-medium uppercase tracking-wider hover:bg-white hover:shadow-[0_0_30px_rgba(127,231,231,0.6)] transition-all duration-300 flex items-center justify-center group/btn">
+            <button onClick={openModal} className="w-full sm:w-auto px-8 py-4 bg-brand-accent text-brand-dark rounded-full font-body font-medium uppercase tracking-wider hover:bg-white hover:shadow-[0_0_30px_rgba(127,231,231,0.6)] transition-all duration-300 flex items-center justify-center group/btn cursor-pointer">
               <CalendarHeart className="mr-3 group-hover/btn:scale-110 transition-transform" size={20} />
               Book Consultation
-            </Link>
+            </button>
             <a href="https://wa.me/1234567890" target="_blank" rel="noreferrer" className="w-full sm:w-auto px-8 py-4 border border-brand-secondary/40 text-brand-secondary rounded-full font-body font-medium uppercase tracking-wider hover:border-[#25D366] hover:text-[#25D366] transition-all duration-300 flex items-center justify-center bg-brand-dark/50 backdrop-blur-sm group/btn">
               <MessageCircle className="mr-3 group-hover/btn:scale-110 transition-transform" size={20} />
               WhatsApp Us

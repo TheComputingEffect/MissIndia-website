@@ -1,79 +1,18 @@
 import React, { useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Environment, Float, Sparkles } from '@react-three/drei';
-import { Briefcase, Star, Sparkles as SparkleIcon, Heart, X, Smile, ShieldCheck, MapPin, MessageSquare, ExternalLink } from 'lucide-react';
-import NightSkyBackground from '../components/NightSkyBackground';
+import { Briefcase, Star, Sparkles as SparkleIcon, Heart, X, Smile, ShieldCheck, MessageSquare, ExternalLink } from 'lucide-react';
 
-// 3D NetworkNode Component
-const NetworkNode = () => {
-  const groupRef = useRef();
 
-  useFrame((state) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y = state.clock.elapsedTime * 0.12;
-      groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.1) * 0.08;
-    }
-  });
 
-  return (
-    <Float speed={2} rotationIntensity={0.6} floatIntensity={1}>
-      <group ref={groupRef} scale={window.innerWidth < 768 ? 0.7 : 0.95} position={[0, -0.2, 0]}>
-        {/* Core Node */}
-        <mesh>
-          <icosahedronGeometry args={[1.2, 1]} />
-          <meshPhysicalMaterial 
-            color="#7FE7E7" 
-            metalness={0.9} 
-            roughness={0.1} 
-            transmission={0.3} 
-            ior={1.6}
-            envMapIntensity={2} 
-          />
-        </mesh>
-        
-        {/* Orbit Node 1 */}
-        <mesh position={[2, 0, 0]} scale={0.3}>
-          <sphereGeometry args={[1, 16, 16]} />
-          <meshStandardMaterial color="#FFD700" metalness={0.9} roughness={0.1} />
-        </mesh>
-
-        {/* Orbit Node 2 */}
-        <mesh position={[-1.5, 1.2, -0.5]} scale={0.25}>
-          <sphereGeometry args={[1, 16, 16]} />
-          <meshStandardMaterial color="#00FFFF" metalness={0.8} roughness={0.2} />
-        </mesh>
-
-        {/* Orbit Node 3 */}
-        <mesh position={[0.5, -1.6, 1.2]} scale={0.35}>
-          <sphereGeometry args={[1, 16, 16]} />
-          <meshPhysicalMaterial color="#FFC0CB" metalness={0.7} roughness={0.15} transmission={0.5} />
-        </mesh>
-
-        {/* Dynamic Connected Bars */}
-        {[...Array(6)].map((_, i) => {
-          const rotationAngle = (i * Math.PI) / 3;
-          return (
-            <mesh 
-              key={i} 
-              rotation={[rotationAngle, rotationAngle * 0.5, 0.5]}
-              position={[0, 0, 0]}
-            >
-              <torusGeometry args={[1.8, 0.02, 8, 32]} />
-              <meshStandardMaterial color="#ffffff" opacity={0.3} transparent />
-            </mesh>
-          );
-        })}
-
-        <Sparkles count={45} scale={[3, 3, 3]} size={3.5} color="#7FE7E7" opacity={0.8} speed={0.4} />
-      </group>
-    </Float>
-  );
-};
+import { db } from '../services/db';
 
 const CorporateEvents = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [coverImage] = useState(() => {
+    const covers = db.getCoverImages();
+    return covers.find(c => c.id === 'corporate')?.imageUrl || "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1000&q=80";
+  });
 
   // 1. Overview Section Services (4 cards)
   const services = [
@@ -218,7 +157,6 @@ const CorporateEvents = () => {
 
   return (
     <main className="relative overflow-hidden bg-[#021E20]">
-      <NightSkyBackground />
       {/* Complete SEO Optimization */}
       <Helmet>
         <title>Corporate Event Management Services | MISS INDIA EVENTS</title>
@@ -361,21 +299,21 @@ const CorporateEvents = () => {
             </motion.div>
           </div>
 
-          {/* Right 3D Scene */}
-          <div className="w-full lg:w-1/2 h-[400px] lg:h-[600px] order-1 lg:order-2 relative z-0 overflow-hidden">
-            <Canvas
-              camera={{ position: [0, 0, 8], fov: 45 }}
-              gl={{ antialias: true, alpha: true }}
+          {/* Right Hero Image (Replaces 3D Canvas) */}
+          <div className="w-full lg:w-1/2 h-[350px] md:h-[450px] lg:h-[550px] order-1 lg:order-2 relative z-10 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              className="relative w-full h-full rounded-3xl overflow-hidden border border-brand-secondary/20 shadow-glass"
             >
-              <ambientLight intensity={0.5} />
-              <directionalLight position={[10, 10, 10]} intensity={2} color="#7FE7E7" />
-              <directionalLight position={[-10, -10, -10]} intensity={1} color="#ffffff" />
-              <spotLight position={[0, 10, 0]} intensity={2} angle={0.5} penumbra={1} color="#7FE7E7" />
-              
-              <NetworkNode />
-              
-              <Environment preset="city" />
-            </Canvas>
+              <img
+                src={coverImage}
+                alt="Corporate Keynote Summit Setup"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/60 via-transparent to-transparent pointer-events-none" />
+            </motion.div>
           </div>
         </div>
       </section>

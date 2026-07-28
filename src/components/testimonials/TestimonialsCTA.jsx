@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { useConsultation } from '../../utils/ConsultationContext';
 
 const TestimonialsCTA = () => {
+  const { openModal } = useConsultation();
   return (
     <section className="py-24 bg-transparent border-t border-brand-secondary/20">
       <div className="container mx-auto px-6 lg:px-12 text-center">
@@ -16,10 +18,10 @@ const TestimonialsCTA = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <Link to="/contact" className="px-8 py-4 bg-brand-secondary text-brand-dark rounded-full font-body font-medium uppercase tracking-wider hover:bg-brand-accent transition-colors duration-300 w-full sm:w-auto flex items-center justify-center">
+            <button onClick={openModal} className="px-8 py-4 bg-brand-secondary text-brand-dark rounded-full font-body font-medium uppercase tracking-wider hover:bg-brand-accent transition-colors duration-300 w-full sm:w-auto flex items-center justify-center cursor-pointer">
               Book Consultation
               <ArrowRight className="ml-2" size={18} />
-            </Link>
+            </button>
             <Link to="/contact" className="px-8 py-4 border border-brand-secondary/50 text-brand-secondary rounded-full font-body font-medium uppercase tracking-wider hover:border-brand-accent hover:text-brand-accent transition-colors duration-300 w-full sm:w-auto glass-card">
               Get a Quote
             </Link>
