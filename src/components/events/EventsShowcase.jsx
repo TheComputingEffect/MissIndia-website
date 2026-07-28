@@ -1,278 +1,95 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, X, Check } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
 
-const eventsData = [
+const showcaseEvents = [
   {
-    id: 1,
-    title: 'DJ SERVICES',
-    image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80',
-    description:
-      'Professional DJs, premium sound systems, lighting effects, live mixing, wedding receptions, private events, and entertainment experiences that transform every celebration into an electrifying affair.',
-    features: [
-      'Professional DJs',
-      'Premium Sound Systems',
-      'LED Lighting Effects',
-      'Live Music Mixing',
-      'Private Events',
-      'Wedding Receptions',
-    ],
+    id: 'weddings',
+    title: 'Wedding & Engagement Events',
+    subtitle: 'Bespoke Love Stories',
+    image: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&q=85',
+    description: 'We orchestrate elegant wedding and engagement celebrations with meticulous attention to detail. From breathtaking stage decor and floral masterpieces to luxury venue coordination, we create seamless, romantic, and awe-inspiring experiences.',
+    features: ['Luxury Stage & Venue Styling', 'Custom Floral Architecture', 'Seamless Timeline Coordination', 'Premium Entertainment & Artists'],
+    path: '/wedding-engagement-events',
   },
   {
-    id: 2,
-    title: 'DANCE CREW WITH PYROS & BLAST EFFECTS',
-    image: 'https://images.unsplash.com/photo-1504680177321-2e6a879aac86?auto=format&fit=crop&w=800&q=80',
-    description:
-      'Professional dance performances enhanced with cold sparks, pyrotechnics, stage blasts, grand entries, and high-energy choreography that bring unforgettable spectacle to every event.',
-    features: [
-      'Professional Dance Teams',
-      'Cold Spark Effects',
-      'Pyrotechnic Shows',
-      'Stage Blasts',
-      'Grand Entry Performances',
-      'Celebrity Style Productions',
-    ],
+    id: 'dj-services',
+    title: 'Premium DJ Services',
+    subtitle: 'Symphony of Energy',
+    image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=85',
+    description: 'Elevate your dance floor with world-class sound, intelligent lighting arrays, and customized live sets. Our professional DJs curate an unforgettable auditory journey tailored perfectly to the pulse of your guests.',
+    features: ['High-End Audio Systems', 'Synchronized Intelligent Lighting', 'Bespoke Music Playlists', 'Interactive Crowd Engagement'],
+    path: '/events/dj-services',
   },
   {
-    id: 3,
-    title: 'MAKEOVERS, SAREE PRE-PLEATING & SAREE DRAPING',
-    image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80',
-    description:
-      'Professional makeup, hairstyling, saree draping, and complete event-ready looks for weddings, engagements, puberty functions, baby showers, and family celebrations.',
-    features: [
-      'Wedding Makeovers',
-      'Engagement Styling',
-      'Puberty Function Looks',
-      'Baby Shower Styling',
-      'Saree Pre-Pleating',
-      'Traditional & Modern Looks',
-    ],
+    id: 'dance-crew',
+    title: 'Dance Crew & Pyrotechnics',
+    subtitle: 'Cinematic Visual Spectacle',
+    image: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=85',
+    description: 'Create heart-stopping moments with spectacular live dance choreography and cutting-edge stage effects. Cold spark fountains, dense fog clouds, and synchronized pyros deliver a true celebrity-style grand production.',
+    features: ['Elite Choreographed Crews', 'Cold Spark Fountains', 'Heavy Dry Ice Fog Effects', 'Synchronized Stage Blasts'],
+    path: '/events/dance-crew',
   },
   {
-    id: 4,
-    title: 'COLLABORATION SHOOTS, MODELLING SHOOTS & BRAND PROMOTIONS',
-    image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80',
-    description:
-      'Creative photoshoots, influencer collaborations, modelling portfolios, commercial campaigns, and social media brand promotions with premium visual storytelling.',
-    features: [
-      'Brand Promotion',
-      'Influencer Collaborations',
-      'Modelling Portfolios',
-      'Fashion Campaigns',
-      'Content Creation',
-      'Social Media Branding',
-    ],
+    id: 'puberty-ceremony',
+    title: 'Puberty Ceremony Events',
+    subtitle: 'Celebrating Sacred Milestones',
+    image: 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?auto=format&fit=crop&w=1200&q=85',
+    description: 'Thoughtfully honoring South Indian traditions with a blend of heritage and contemporary luxury. We curate traditional decor, vibrant floral arrangements, grand stage setups, and heartwarming hospitality for your family.',
+    features: ['Exquisite Traditional Decor', 'Intricate Floral backdrops', 'Auspicious Ritual Coordination', 'Flawless Guest Hospitality'],
+    path: '/puberty-ceremony-events',
   },
   {
-    id: 5,
-    title: 'CORPORATE EVENTS',
-    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80',
-    description:
-      'Corporate meetings, conferences, product launches, award ceremonies, networking events, employee engagement programs, and company celebrations delivered with sophistication.',
-    features: [
-      'Product Launches',
-      'Corporate Conferences',
-      'Award Ceremonies',
-      'Networking Events',
-      'Employee Engagement',
-      'Company Celebrations',
-    ],
+    id: 'baby-shower',
+    title: 'Baby Shower Events',
+    subtitle: 'Welcoming New Beginnings',
+    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85',
+    description: 'Celebrate the upcoming arrival of your bundle of joy with beautiful theme-based styling. We create soft, aesthetic setups featuring elegant pastel floral arrangements, balloon installations, and engaging guest activities.',
+    features: ['Customized Theme Decors', 'Elegant Seating & Backdrops', 'Gourmet Dessert Displays', 'Memorable Photography Setups'],
+    path: '/baby-shower-events',
   },
   {
-    id: 6,
-    title: 'LOVED ONE SURPRISE EVENTS',
-    image: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80',
-    description:
-      'Birthday surprises, anniversary surprises, proposals, welcome events, romantic setups, and customized memorable experiences designed to delight your loved ones.',
-    features: [
-      'Birthday Surprises',
-      'Anniversary Celebrations',
-      'Proposal Planning',
-      'Welcome Events',
-      'Romantic Setups',
-      'Customized Experiences',
-    ],
+    id: 'modelling-shoots',
+    title: 'Collaboration & Modelling Shoots',
+    subtitle: 'Editorial Visual Storytelling',
+    image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=85',
+    description: 'Transform concepts into stunning visual assets with our commercial fashion shoots, brand launch campaigns, and high-end model portfolio productions. We combine professional lighting with elite styling for exceptional results.',
+    features: ['High-Fashion Art Direction', 'Professional Studio & Lighting', 'Model & Styling Curation', 'Commercial-Grade Cinematography'],
+    path: '/collaboration-modelling-shoots',
   },
   {
-    id: 7,
-    title: 'WEDDING & ENGAGEMENT EVENTS',
-    image: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800&q=80',
-    description:
-      'Elegant wedding and engagement celebrations planned with attention to every detail, including décor, entertainment, styling, photography coordination, and memorable guest experiences.',
-    features: [
-      'Wedding Planning Support',
-      'Engagement Ceremonies',
-      'Venue Styling',
-      'Entertainment Coordination',
-      'Guest Experience Management',
-      'Luxury Celebration Concepts',
-    ],
+    id: 'corporate',
+    title: 'Corporate Events & Galas',
+    subtitle: 'Prestige & Execution',
+    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=85',
+    description: 'Conferences, product launches, networking galas, and corporate awards delivered with high-level sophistication. We manage sophisticated stage setups, high-tech audiovisual elements, and seamless planning for global brands.',
+    features: ['Product Launch Production', 'Premium AV & Tech Integration', 'Business Gala Coordination', 'Corporate Brand Activations'],
+    path: '/corporate-events',
   },
   {
-    id: 8,
-    title: 'PUBERTY CEREMONY EVENTS',
-    image: 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?auto=format&fit=crop&w=800&q=80',
-    description:
-      'Traditional puberty ceremony celebrations thoughtfully organized with customized decorations, cultural elements, stage setups, photography coordination, and guest arrangements.',
-    features: [
-      'Traditional Decorations',
-      'Floral Arrangements',
-      'Stage Setup',
-      'Photography Coordination',
-      'Guest Management',
-      'Customized Themes',
-    ],
-  },
-  {
-    id: 9,
-    title: 'BABY SHOWER EVENTS',
-    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
-    description:
-      'Beautiful baby shower celebrations designed with themed decorations, customized setups, floral arrangements, entertainment, and memorable experiences for family and friends.',
-    features: [
-      'Theme-Based Decorations',
-      'Balloon Styling',
-      'Floral Arrangements',
-      'Welcome Setups',
-      'Photography Support',
-      'Customized Celebration Concepts',
-    ],
-  },
+    id: 'surprises',
+    title: 'Surprise Events for Loved Ones',
+    subtitle: 'Unscripted Emotional Reveals',
+    image: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1200&q=85',
+    description: 'Whether it is a breathtaking rooftop marriage proposal, a milestone birthday party, or an anniversary dinner, we handle everything from secret logistics to glowing fairy-lit setups that spark absolute joy.',
+    features: ['Secret Proposals & Anniversaries', 'Custom Glowing Signage', 'Fairy-Lit Ambiance Styling', 'Live Instrumental Backdrop'],
+    path: '/surprise-events-for-loved-ones',
+  }
 ];
 
-const EventCard = ({ event, index, onOpen }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 50 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: '-80px' }}
-    transition={{ duration: 0.7, delay: index * 0.1 }}
-    className="group relative rounded-2xl overflow-hidden cursor-pointer border border-brand-secondary/10 hover:border-brand-accent/40 transition-colors duration-500"
-    onClick={() => onOpen(event)}
-  >
-    {/* Image */}
-    <div className="relative h-72 md:h-80 overflow-hidden">
-      <img
-        src={event.image}
-        alt={event.title}
-        loading="lazy"
-        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-      />
-      {/* Dark glass overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
-      {/* Hover glow */}
-      <div className="absolute inset-0 bg-brand-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-    </div>
-
-    {/* Content */}
-    <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-      <h3 className="font-heading text-lg md:text-xl font-bold text-white mb-2 group-hover:text-brand-accent transition-colors duration-300 leading-tight">
-        {event.title}
-      </h3>
-      <p className="text-brand-secondary/70 font-body text-sm leading-relaxed line-clamp-2 mb-4">
-        {event.description}
-      </p>
-      <div className="flex items-center text-brand-accent font-body text-xs uppercase tracking-[0.15em] group/btn">
-        <span className="mr-2 group-hover/btn:mr-3 transition-all duration-300">
-          Book Now
-        </span>
-        <ArrowRight
-          size={14}
-          className="group-hover:translate-x-1 transition-transform duration-300"
-        />
-      </div>
-    </div>
-  </motion.div>
-);
-
-const EventModal = ({ event, onClose }) => (
-  <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-brand-dark/90 backdrop-blur-xl"
-    onClick={onClose}
-  >
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9, y: 30 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9, y: 30 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl glass-card border border-brand-secondary/20 shadow-[0_30px_80px_rgba(0,0,0,0.6)]"
-      onClick={(e) => e.stopPropagation()}
-    >
-      {/* Close */}
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-brand-dark/80 border border-brand-secondary/20 flex items-center justify-center text-brand-secondary hover:text-brand-accent hover:border-brand-accent/50 transition-colors duration-300"
-        aria-label="Close modal"
-      >
-        <X size={18} />
-      </button>
-
-      {/* Image */}
-      <div className="relative h-56 md:h-72 overflow-hidden rounded-t-3xl">
-        <img
-          src={event.image}
-          alt={event.title}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/40 to-transparent" />
-      </div>
-
-      {/* Body */}
-      <div className="p-8 md:p-10">
-        <h2 className="font-heading text-2xl md:text-3xl font-bold text-white mb-4">
-          {event.title}
-        </h2>
-        <p className="text-brand-secondary/80 font-body text-sm md:text-base leading-relaxed mb-8">
-          {event.description}
-        </p>
-
-        {/* Features */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
-          {event.features.map((feature, i) => (
-            <div
-              key={i}
-              className="flex items-center gap-3 text-brand-secondary/80 font-body text-sm"
-            >
-              <div className="w-5 h-5 rounded-full bg-brand-accent/10 border border-brand-accent/30 flex items-center justify-center flex-shrink-0">
-                <Check size={10} className="text-brand-accent" />
-              </div>
-              {feature}
-            </div>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <a
-          href="/contact"
-          className="inline-flex items-center px-8 py-3.5 bg-brand-accent text-brand-dark rounded-full font-body font-medium uppercase tracking-wider text-sm hover:bg-white hover:shadow-glow transition-all duration-300 group"
-        >
-          Book This Service
-          <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={16} />
-        </a>
-      </div>
-    </motion.div>
-  </motion.div>
-);
-
 const EventsShowcase = () => {
-  const [selectedEvent, setSelectedEvent] = useState(null);
-
   return (
-    <section
-      id="events-showcase"
-      className="relative py-24 md:py-32 z-50 bg-[#011415]"
-    >
-      {/* Background decor */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-brand-accent/5 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-brand-primary/10 rounded-full blur-[100px]" />
+    <section id="events-showcase" className="relative py-24 lg:py-32 bg-brand-dark overflow-hidden">
+      {/* Background gradients */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <div className="absolute top-[20%] left-0 w-[500px] h-[500px] bg-brand-accent/5 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[30%] right-0 w-[500px] h-[500px] bg-brand-primary/5 rounded-full blur-[120px]" />
       </div>
 
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
-        {/* Heading */}
-        <div className="text-center mb-16 md:mb-20 max-w-3xl mx-auto">
+        {/* Section Heading */}
+        <div className="text-center mb-24 max-w-3xl mx-auto">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -280,19 +97,16 @@ const EventsShowcase = () => {
             transition={{ duration: 0.6 }}
             className="text-brand-accent text-xs md:text-sm uppercase tracking-[0.25em] font-body mb-4 block"
           >
-            Our Signature Events
+            Signature Offerings
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-brand-secondary mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-brand-secondary mb-6 uppercase tracking-wider"
           >
-            Signature{' '}
-            <span className="text-brand-accent italic font-light">
-              Experiences
-            </span>
+            Interactive <span className="text-brand-accent italic font-light">Showcase</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -301,32 +115,90 @@ const EventsShowcase = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-brand-secondary/70 font-body text-sm md:text-base leading-relaxed"
           >
-            Exceptional experiences tailored to every celebration and occasion.
+            Explore our curated selection of bespoke event management services, engineered to transcend expectations and create lasting luxury impressions.
           </motion.p>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {eventsData.map((event, index) => (
-            <EventCard
-              key={event.id}
-              event={event}
-              index={index}
-              onOpen={setSelectedEvent}
-            />
-          ))}
+        {/* Alternating Showcase List */}
+        <div className="flex flex-col space-y-32">
+          {showcaseEvents.map((event, index) => {
+            const isImageLeft = index % 2 === 0;
+
+            return (
+              <div 
+                key={event.id}
+                id={event.id} 
+                className="flex flex-col lg:flex-row items-center w-full gap-8 lg:gap-12 relative"
+              >
+                {/* Image Container (70% on desktop) */}
+                <motion.div
+                  initial={{ opacity: 0, x: isImageLeft ? -50 : 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-100px' }}
+                  transition={{ duration: 0.8 }}
+                  className={`w-full lg:w-[70%] h-[350px] md:h-[450px] lg:h-[550px] rounded-3xl overflow-hidden relative group shadow-glass ${
+                    isImageLeft ? 'order-1' : 'order-1 lg:order-2'
+                  }`}
+                >
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[1200ms] ease-out"
+                  />
+                  {/* Subtle dark glass vignette overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/30 to-transparent opacity-80" />
+                  
+                  {/* Premium Hover Border */}
+                  <div className="absolute inset-0 border-2 border-brand-accent/0 group-hover:border-brand-accent/30 rounded-3xl transition-all duration-500 z-10" />
+                </motion.div>
+
+                {/* Content Container (30% on desktop) */}
+                <motion.div
+                  initial={{ opacity: 0, x: isImageLeft ? 50 : -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-100px' }}
+                  transition={{ duration: 0.8, delay: 0.1 }}
+                  className={`w-full lg:w-[30%] flex flex-col space-y-6 z-20 ${
+                    isImageLeft ? 'order-2' : 'order-2 lg:order-1'
+                  }`}
+                >
+                  <div className="p-8 lg:p-10 rounded-2xl glass-card border border-brand-secondary/10 hover:border-brand-accent/40 transition-all duration-500 shadow-glass">
+                    <span className="text-brand-accent text-xs font-bold uppercase tracking-[0.2em]">
+                      {event.subtitle}
+                    </span>
+                    <h3 className="text-2xl md:text-3xl font-heading font-bold text-white mt-2 mb-4 leading-tight uppercase">
+                      {event.title}
+                    </h3>
+                    <p className="text-brand-secondary/70 font-body text-sm leading-relaxed mb-6">
+                      {event.description}
+                    </p>
+
+                    {/* Features list */}
+                    <ul className="space-y-3 mb-8">
+                      {event.features.map((feat, fidx) => (
+                        <li key={fidx} className="flex items-start text-brand-secondary/85 text-xs font-body leading-relaxed">
+                          <CheckCircle2 className="w-4 h-4 text-brand-accent mr-2.5 flex-shrink-0 mt-0.5" />
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* CTA Action */}
+                    <Link
+                      to={event.path}
+                      className="inline-flex items-center gap-2 py-3.5 px-6 bg-brand-accent/10 border border-brand-accent/30 text-brand-accent rounded-full font-body font-semibold text-xs tracking-wider uppercase hover:bg-brand-accent hover:text-brand-dark transition-all duration-300 w-full justify-center group"
+                    >
+                      <span>Explore Service Details</span>
+                      <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                </motion.div>
+              </div>
+            );
+          })}
         </div>
       </div>
-
-      {/* Modal */}
-      <AnimatePresence>
-        {selectedEvent && (
-          <EventModal
-            event={selectedEvent}
-            onClose={() => setSelectedEvent(null)}
-          />
-        )}
-      </AnimatePresence>
     </section>
   );
 };

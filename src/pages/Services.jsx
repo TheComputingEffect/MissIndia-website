@@ -9,7 +9,7 @@ const Services = () => {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "name": "MISSINDIA Services",
-    "description": "Premium wedding and celebration services including wedding photography, stage decoration, invitation design, wedding garlands, gift hampers, return gifts and festive decorations.",
+    "description": "Premium wedding and celebration services including wedding photography, stage decoration, saree draping services, invitation design, wedding garlands, gift hampers, return gifts and festive decorations.",
     "url": "https://missindiaevents.com/services",
     "areaServed": "India",
     "serviceType": [
@@ -20,7 +20,8 @@ const Services = () => {
       "Gifts, Hampers & Bouquets",
       "Return Gifts",
       "Idol Decoration & Idol Saree Draping",
-      "Wedding Garlands"
+      "Wedding Garlands",
+      "Saree Draping Services"
     ]
   };
 
@@ -30,11 +31,11 @@ const Services = () => {
         <title>Luxury Wedding Services | MISSINDIA</title>
         <meta
           name="description"
-          content="Premium wedding and celebration services including wedding photography, stage decoration, invitation design, wedding garlands, gift hampers, return gifts and festive decorations."
+          content="Premium wedding and celebration services including wedding photography, stage decoration, saree draping services, invitation design, wedding garlands, gift hampers, return gifts and festive decorations."
         />
         <meta
           name="keywords"
-          content="Wedding Photography, Stage Decoration, Wedding Garlands, Invitation Printing, Gift Hampers, Return Gifts, Wedding Services, Festival Decoration, Wedding Decoration, Event Styling"
+          content="Saree Draping Services, Bridal Saree Draping, Traditional Saree Styling, Wedding Saree Draping, Professional Saree Draping, Wedding Photography, Stage Decoration, Wedding Garlands, Invitation Printing, Gift Hampers, Return Gifts, Wedding Services, Festival Decoration, Wedding Decoration, Event Styling"
         />
         <meta property="og:title" content="MISSINDIA Services" />
         <meta

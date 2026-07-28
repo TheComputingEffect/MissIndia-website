@@ -5,44 +5,44 @@ import { X, ZoomIn } from 'lucide-react';
 const galleryItems = [
   {
     id: 1,
-    src: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80',
-    alt: 'DJ Events',
-    category: 'DJ Events',
+    src: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800&q=80',
+    alt: 'Luxury Wedding Decor',
+    category: 'Weddings',
     span: 'md:col-span-2 md:row-span-2',
   },
   {
     id: 2,
-    src: 'https://images.unsplash.com/photo-1504680177321-2e6a879aac86?auto=format&fit=crop&w=600&q=80',
-    alt: 'Dance Performances',
-    category: 'Dance Performances',
+    src: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=600&q=80',
+    alt: 'Corporate Conference Launch',
+    category: 'Corporate Events',
     span: '',
   },
   {
     id: 3,
-    src: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=600&q=80',
-    alt: 'Wedding Styling',
-    category: 'Wedding Styling',
+    src: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80',
+    alt: 'Elegant Baby Shower Setup',
+    category: 'Baby Showers',
     span: '',
   },
   {
     id: 4,
-    src: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=600&q=80',
-    alt: 'Corporate Gatherings',
-    category: 'Corporate Gatherings',
-    span: '',
-  },
-  {
-    id: 5,
     src: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80',
-    alt: 'Brand Shoots',
-    category: 'Brand Shoots',
+    alt: 'Fashion Modelling Shoot',
+    category: 'Modelling Shoots',
     span: 'md:col-span-2',
   },
   {
-    id: 6,
+    id: 5,
     src: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=600&q=80',
-    alt: 'Surprise Celebrations',
+    alt: 'Surprise Romantic Proposal Decor',
     category: 'Surprise Celebrations',
+    span: '',
+  },
+  {
+    id: 6,
+    src: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80',
+    alt: 'Luxury Wedding Celebration',
+    category: 'Weddings',
     span: '',
   },
 ];
@@ -70,20 +70,21 @@ const EventsGallery = () => {
             transition={{ duration: 0.6 }}
             className="text-brand-accent text-xs md:text-sm uppercase tracking-[0.25em] font-body mb-4 block"
           >
-            Portfolio
+            Portfolio Showcase
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-5xl font-heading font-bold text-brand-secondary"
+            className="text-4xl md:text-5xl font-heading font-bold text-brand-secondary uppercase tracking-wider"
           >
             Event{' '}
             <span className="text-brand-accent italic font-light">
               Highlights
             </span>
           </motion.h2>
+          <div className="w-24 h-0.5 bg-brand-accent mx-auto mt-6" />
         </div>
 
         {/* Masonry grid */}

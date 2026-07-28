@@ -46,19 +46,16 @@ const Navbar = () => {
       dropdown: [
         { name: 'DJ Services', path: '/events/dj-services' },
         { name: 'Dance Crew with Pyros & Blast Effects', path: '/events/dance-crew' },
-        { name: 'Makeovers & Saree Draping Services', path: '/events' },
-        { name: 'Wedding & Engagement Events', path: '/events' },
-        { name: 'Puberty Ceremony Events', path: '/events' },
-        { name: 'Baby Shower Events', path: '/events' },
-        { name: 'Collaboration & Modelling Shoots', path: '/events' },
-        { name: 'Corporate Events', path: '/events' },
-        { name: 'Surprise Events for Loved Ones', path: '/events' }
+        { name: 'Wedding & Engagement Events', path: '/wedding-engagement-events' },
+        { name: 'Puberty Ceremony Events', path: '/puberty-ceremony-events' },
+        { name: 'Baby Shower Events', path: '/baby-shower-events' },
+        { name: 'Collaboration & Modelling Shoots', path: '/collaboration-modelling-shoots' },
+        { name: 'Corporate Events', path: '/corporate-events' },
+        { name: 'Surprise Events for Loved Ones', path: '/surprise-events-for-loved-ones' }
       ]
     },
     { name: 'Testimonials', path: '/testimonials' },
     { name: 'Gallery', path: '/gallery' },
-    { name: 'Packages', path: '/packages' },
-    { name: 'Blogs', path: '/blogs' },
     { name: 'Contact', path: '/contact' },
   ];
 
@@ -69,15 +66,17 @@ const Navbar = () => {
         scrolled ? 'bg-brand-dark/80 backdrop-blur-xl border-b border-brand-secondary/20 py-4 shadow-glass' : 'bg-transparent py-6'
       )}
     >
-      <div className="container mx-auto px-6 lg:px-12 flex justify-between items-center">
-        {/* Logo */}
-        <Link to="/" className="text-2xl md:text-3xl font-heading font-bold tracking-widest text-brand-secondary relative group">
-          MISSINDIA
-          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
-        </Link>
+      <div className="container mx-auto px-6 lg:px-12 flex justify-between items-center lg:grid lg:grid-cols-3 lg:gap-4">
+        {/* Column 1: Logo */}
+        <div className="flex justify-start items-center">
+          <Link to="/" className="text-2xl md:text-3xl font-heading font-bold tracking-widest text-brand-secondary relative group whitespace-nowrap">
+            MISSINDIA
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
+          </Link>
+        </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center space-x-8">
+        {/* Column 2: Desktop Navigation Links (Mathematically Centered) */}
+        <nav className="hidden lg:flex justify-center items-center space-x-6 xl:space-x-8">
           {navLinks.map((link) => (
             <div 
               key={link.name} 
@@ -88,7 +87,7 @@ const Navbar = () => {
               <Link
                 to={link.path}
                 className={clsx(
-                  'text-sm uppercase tracking-wider font-body hover:text-brand-accent transition-colors duration-300 relative flex items-center',
+                  'text-sm uppercase tracking-wider font-body hover:text-brand-accent transition-colors duration-300 relative flex items-center whitespace-nowrap',
                   location.pathname === link.path ? 'text-brand-accent' : 'text-brand-secondary/80'
                 )}
               >
@@ -116,7 +115,7 @@ const Navbar = () => {
                     animate={{ opacity: 1, y: 0, visibility: 'visible' }}
                     exit={{ opacity: 0, y: 10, visibility: 'hidden' }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-[80%] left-0 pt-4 w-[340px]"
+                    className="absolute top-[80%] left-1/2 -translate-x-1/2 pt-4 w-[340px]"
                   >
                     <div className="bg-brand-dark/95 backdrop-blur-xl border border-brand-secondary/20 rounded-2xl shadow-glass overflow-hidden relative">
                       {/* Decorative Top Accent */}
@@ -142,24 +141,27 @@ const Navbar = () => {
           ))}
         </nav>
 
-        {/* CTA Button */}
-        <div className="hidden lg:block">
-          <Link
-            to="/contact"
-            className="relative px-6 py-3 rounded-full border border-brand-secondary/30 text-brand-secondary font-body text-sm uppercase tracking-wider overflow-hidden group hover:border-brand-accent transition-colors duration-500 glass-card"
-          >
-            <span className="relative z-10 group-hover:text-brand-accent transition-colors duration-300">Book Consultation</span>
-            <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent z-0"></div>
-          </Link>
-        </div>
+        {/* Column 3: Desktop CTA Button & Mobile Menu Toggle */}
+        <div className="flex justify-end items-center">
+          {/* Desktop CTA Button */}
+          <div className="hidden lg:block">
+            <Link
+              to="/contact"
+              className="relative min-w-[220px] xl:min-w-[245px] h-12 flex items-center justify-center rounded-full border border-brand-secondary/30 text-brand-secondary font-body text-xs xl:text-sm uppercase tracking-widest overflow-hidden group hover:border-brand-accent transition-all duration-500 glass-card whitespace-nowrap px-6 shadow-glass"
+            >
+              <span className="relative z-10 group-hover:text-brand-accent transition-colors duration-300">Book Consultation</span>
+              <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent z-0"></div>
+            </Link>
+          </div>
 
-        {/* Mobile Menu Toggle */}
-        <button
-          className="lg:hidden text-brand-secondary focus:outline-none"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+          {/* Mobile Menu Toggle */}
+          <button
+            className="lg:hidden text-brand-secondary focus:outline-none flex items-center"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Navigation */}
@@ -231,7 +233,7 @@ const Navbar = () => {
               ))}
               <Link
                 to="/contact"
-                className="mt-4 px-6 py-3 text-center rounded-full border border-brand-accent text-brand-accent font-body text-sm uppercase tracking-wider bg-brand-accent/10"
+                className="mt-6 w-full h-12 flex items-center justify-center rounded-full border border-brand-accent text-brand-accent font-body text-sm uppercase tracking-widest bg-brand-accent/10 hover:bg-brand-accent hover:text-brand-dark transition-all duration-300 whitespace-nowrap shadow-glass"
                 onClick={() => {
                   setMobileMenuOpen(false);
                   setActiveDropdown(null);

@@ -123,6 +123,21 @@ const servicesData = [
       'Ceremony Garlands',
     ],
   },
+  {
+    id: 9,
+    title: 'SAREE DRAPING SERVICES',
+    image: 'https://images.unsplash.com/photo-1610030469668-93535c17b6b3?auto=format&fit=crop&w=800&q=80',
+    description:
+      'Professional saree draping and pre-pleating services for weddings, engagements, baby showers, puberty ceremonies, festive occasions, and special celebrations.',
+    features: [
+      'Saree Pre-Pleating',
+      'Bridal Saree Draping',
+      'Traditional Saree Styling',
+      'Wedding Draping',
+      'Occasion Styling',
+      'Festive Saree Styling',
+    ],
+  },
 ];
 
 const ServiceCard = ({ service, index, onOpen }) => (
@@ -167,77 +182,94 @@ const ServiceCard = ({ service, index, onOpen }) => (
   </motion.div>
 );
 
-const ServiceModal = ({ service, onClose }) => (
-  <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-brand-dark/90 backdrop-blur-xl"
-    onClick={onClose}
-  >
+const ServiceModal = ({ service, onClose }) => {
+  const titleLength = service.title.length;
+  let titleFontSizeClass = 'text-3xl sm:text-4xl lg:text-[2.5rem]';
+  if (titleLength > 30) {
+    titleFontSizeClass = 'text-2xl sm:text-3xl lg:text-[1.85rem]';
+  } else if (titleLength > 20) {
+    titleFontSizeClass = 'text-2xl sm:text-3xl lg:text-[2.15rem]';
+  }
+
+  return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9, y: 30 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9, y: 30 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl glass-card border border-brand-secondary/20 shadow-[0_30px_80px_rgba(0,0,0,0.6)]"
-      onClick={(e) => e.stopPropagation()}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-brand-dark/95 backdrop-blur-md"
+      onClick={onClose}
     >
-      {/* Close */}
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-brand-dark/80 border border-brand-secondary/20 flex items-center justify-center text-brand-secondary hover:text-brand-accent hover:border-brand-accent/50 transition-colors duration-300"
-        aria-label="Close modal"
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.95 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="relative w-full max-w-[1050px] lg:h-[580px] max-h-[80vh] flex flex-col lg:flex-row overflow-hidden rounded-[2rem] bg-[#020e10]/80 backdrop-blur-2xl border border-white/5 shadow-[0_0_80px_rgba(0,0,0,0.8)] mt-8 lg:mt-12"
+        onClick={(e) => e.stopPropagation()}
       >
-        <X size={18} />
-      </button>
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 lg:top-6 lg:right-6 z-50 w-11 h-11 rounded-full bg-black/20 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all duration-300 group"
+          aria-label="Close modal"
+        >
+          <X size={20} className="group-hover:rotate-90 transition-transform duration-500" />
+        </button>
 
-      {/* Image */}
-      <div className="relative h-56 md:h-72 overflow-hidden rounded-t-3xl">
-        <img
-          src={service.image}
-          alt={service.title}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/40 to-transparent" />
-      </div>
-
-      {/* Body */}
-      <div className="p-8 md:p-10">
-        <h2 className="font-heading text-2xl md:text-3xl font-bold text-white mb-4">
-          {service.title}
-        </h2>
-        <p className="text-brand-secondary/80 font-body text-sm md:text-base leading-relaxed mb-8">
-          {service.description}
-        </p>
-
-        {/* Features */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
-          {service.features.map((feature, i) => (
-            <div
-              key={i}
-              className="flex items-center gap-3 text-brand-secondary/80 font-body text-sm"
-            >
-              <div className="w-5 h-5 rounded-full bg-brand-accent/10 border border-brand-accent/30 flex items-center justify-center flex-shrink-0">
-                <Check size={10} className="text-brand-accent" />
-              </div>
-              {feature}
-            </div>
-          ))}
+        {/* Image Side (Left) */}
+        <div className="relative w-full lg:w-[45%] h-[35vh] min-h-[250px] lg:h-full shrink-0">
+          <img
+            src={service.image}
+            alt={service.title}
+            className="w-full h-full object-cover"
+          />
+          {/* Soft luxury gradient overlays for blending */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#020e10] via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-[#020e10]/20 lg:to-[#020e10]" />
         </div>
 
-        {/* CTA */}
-        <a
-          href="/contact"
-          className="inline-flex items-center px-8 py-3.5 bg-brand-accent text-brand-dark rounded-full font-body font-medium uppercase tracking-wider text-sm hover:bg-white hover:shadow-glow transition-all duration-300 group"
-        >
-          Get a Quote
-          <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={16} />
-        </a>
-      </div>
+        {/* Content Side (Right) - Internal Scrolling */}
+        <div className="relative w-full lg:w-[55%] flex flex-col p-8 sm:p-10 lg:p-12 overflow-y-auto custom-scrollbar">
+          <div className="my-auto">
+            <h2 className={`font-heading font-bold text-white mb-5 leading-[1.15] ${titleFontSizeClass}`}>
+              {service.title}
+            </h2>
+            <p className="text-brand-secondary/70 font-body text-sm sm:text-base leading-relaxed mb-10">
+              {service.description}
+            </p>
+
+            {/* Feature Pills */}
+            <div className="flex flex-wrap gap-3 mb-10">
+              {service.features.map((feature, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] hover:border-brand-accent/40 transition-all duration-300 backdrop-blur-sm"
+                >
+                  <div className="w-5 h-5 rounded-full bg-brand-accent/10 flex items-center justify-center shrink-0">
+                    <Check size={12} className="text-brand-accent" />
+                  </div>
+                  <span className="text-brand-secondary/90 font-body text-xs sm:text-sm font-medium tracking-wide">
+                    {feature}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <div className="mt-auto lg:mt-4">
+              <a
+                href="/contact"
+                className="inline-flex w-full sm:w-auto items-center justify-center px-9 py-4 bg-brand-accent text-brand-dark rounded-full font-body font-semibold uppercase tracking-[0.15em] text-sm hover:bg-white hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] transition-all duration-500 group"
+              >
+                Get a Quote
+                <ArrowRight className="ml-3 group-hover:translate-x-2 transition-transform duration-300" size={18} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </motion.div>
-  </motion.div>
-);
+  );
+};
 
 const ServicesShowcase = () => {
   const [selectedService, setSelectedService] = useState(null);
@@ -289,8 +321,8 @@ const ServicesShowcase = () => {
           </motion.p>
         </div>
 
-        {/* Grid — 4 columns on large screens for 8 cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-7">
+        {/* Grid — 3 columns on large screens for 9 cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
           {servicesData.map((service, index) => (
             <ServiceCard
               key={service.id}

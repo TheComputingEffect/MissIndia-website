@@ -23,7 +23,7 @@ const Contact = () => {
     'Surprise Events for Loved Ones',
     'DJ Services',
     'Dance Crew with Pyros & Blast Effects',
-    'Makeovers & Saree Draping Services',
+    'Saree Draping Services',
     'Other Custom Event'
   ];
 
